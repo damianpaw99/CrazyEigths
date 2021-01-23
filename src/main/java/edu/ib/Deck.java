@@ -119,6 +119,14 @@ public class Deck {
         card.setDeck(deck);
         deck.addCard(card);
     }
+    public void moveCardToDeck(Card card,Deck deck,int index){
+        listOfCards.remove(card);
+        card.setDeck(deck);
+        deck.addCard(index, card);
+    }
+    public void addCard(int index, Card card){
+        listOfCards.add(index, card);
+    }
 
     /**
      * @return size of the Deck as int

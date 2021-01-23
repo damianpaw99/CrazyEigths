@@ -6,6 +6,11 @@ public abstract class Player {
     private int points;
     private final Game game;
 
+    /**
+     * Player constructor
+     * @param game Game
+     * @param name Name of teh player
+     */
     public Player(Game game,String name){
         this.game=game;
         this.name=name;
@@ -13,6 +18,13 @@ public abstract class Player {
     }
 
     public abstract void playCard();
+
+    public void drawCard(Card card,Deck deck){
+        hand.moveCardToDeck(card, deck);
+    }
+    public void addPoints(int points){
+        this.points+=points;
+    }
 
     public Hand getHand() {
         return hand;
