@@ -6,71 +6,98 @@ import javafx.scene.control.Button;
  * Card class definition
  */
 
-public class Card {
+public class Card implements Comparable<Card>{
+
+
 
     /**
-     * RANK (value)
-     * rank starts with 1 ends with 13
-     * 1 - Ace
-     * 2-10 - correspondingly
-     * 11 - Jack
-     * 12 - Queen
-     * 13 - King
+     * Enum class of possible ranks of Card and with value of each rank
      */
-    private final int rank;
-    public static final String[] RANKS = {null, "Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King"};
+    public enum Rank{
+        Ace(1),
+        Two(2),
+        Three(3),
+        Four(4),
+        Five(5),
+        Six(6),
+        Seven(7),
+        Eight(8),
+        Nine(9),
+        Ten(10),
+        Jack(10),
+        Queen(10),
+        King(10);
+
+        int pointsValue;
+
+        Rank(int pointsValue){
+            this.pointsValue=pointsValue;
+        }
+        int getPointsValue(){
+            return pointsValue;
+        }
+    }
 
     /**
-     * SUIT (color)
-     * Values:
-     * 0 - Hearts (kier)
-     * 1 - Spades (pik)
-     * 2 - Diamonds (karo)
-     * 3 - Clubs (trefl)
-     * color is int so we can sort in class Hand easier
+     * Enum class of possible suits of card
      */
-    private final int suit;
-    public static final String[] SUITS = {"Hearts", "Spades", "Diamonds", "Clubs"};
+    public enum Suit{
+        Hearts,
+        Spades,
+        Diamonds,
+        Clubs
+    }
 
-    /**
-     * Points value of:
-     * Ace - 1 point
-     * 2-10 - accordingly, 2-10 points
-     * Jack, Queen, King - 10 points each
-     */
 
-    private final int pointsValue;
+    private final Suit suit;
+    private final Rank rank;
 
     /**
      * Button assigned to the Card
      */
     private Button button;
+    /**
+     * Deck in which this card is
+     */
+    private Deck deck;
 
-    public Card(int rank, int suit, int pointsValue) {
-        this.rank = rank;
-        this.suit = suit;
-        this.pointsValue = pointsValue;
+    /**
+     * Card constructor
+     * @param deck Deck in witch this card is
+     * @param rank Rank of card
+     * @param suit Suit of card
+     * @param button Button of card
+     */
+    public Card(Deck deck, Rank rank, Suit suit, Button button) {
+        this.button=button;
+        this.deck=deck;
+        this.rank=rank;
+        this.suit=suit;
     }
 
     /**
      * @return int with rank/value of the Card
      */
-    public int getRank() {
+    public Rank getRank() {
         return rank;
     }
 
     /**
      * @return String with color of the Card
      */
-    public int getSuit() {
+    public Suit getSuit() {
         return suit;
     }
 
     /**
+     * Points value of:
+     * Ace - 1 point
+     * 2-10 - accordingly, 2-10 points
+     * Jack, Queen, King - 10 points each
      * @return int with points value of the Card
      */
     public int getPointsValue() {
-        return pointsValue;
+        return rank.getPointsValue();
     }
 
     /**
@@ -80,50 +107,52 @@ public class Card {
         return button;
     }
 
-
+    /**
+     * Method finding position of card in deck
+     * @return Card index in deck
+     */
     public int findPlaceInDeck() {
-        return getSuit() * 13 + getRank();
+        return deck.getIndex(this);
     }
 
     /**
-     * @param secondCard - Card to which Suit is compared to
-     * @return int -1, 1 or 0, depending on the comparison result
+     * Overridden to String method from Object class
+     * @return Basic info about card in String
      */
-    public int compareSuits(Card secondCard) {
-        if (suit < secondCard.getSuit()) {
-            return -1;
-        } else if (suit > secondCard.getSuit()) {
-            return 1;
-        } else return 0;
-    }
-
-    /**
-     * @param secondCard - Card to which Rank is compared to
-     * @return int -1, 1 or 0, depending on the comparison result
-     */
-    public int compareRanks(Card secondCard) {
-        if (rank < secondCard.getRank()) {
-            return -1;
-        } else if (rank > secondCard.getRank()) {
-            return 1;
-        } else return 0;
-    }
-
     public String toString() {
-        String stringRank;
-        String stringSuit;
+        return suit.toString()+" "+rank.toString();
+    }
 
-        if (rank == 1) stringRank = "Ace";
-        else if (rank == 11) stringRank = "Jack";
-        else if (rank == 12) stringRank = "Queen";
-        else if (rank == 13) stringRank = "King";
-        else stringRank = String.valueOf(rank);
+    /**
+     * Overridden method from Comparable interface
+     * @param card Another Card object to compare
+     * @return -1 if card is lower than another card,
+     * 0 if card is equal another card,
+     * 1 if card is grater then another card
+     */
+    @Override
+    public int compareTo(Card card) {
+        return (int) Math.signum(compareValueOfCard()-card.compareValueOfCard());
+    }
 
-        if (suit == 0) stringSuit = "Hearts";
-        else if (suit == 1) stringSuit = "Spades";
-        else if (suit == 2) stringSuit = "Diamonds";
-        else stringSuit = "Clubs";
-
-        return (stringRank + " of " + stringSuit);
+    /**
+     * Method counting comparing value of card
+     * @return Compering value of card
+     */
+    private int compareValueOfCard(){
+        int value=0;
+        switch (suit) {
+            case Spades -> value += 400;
+            case Hearts -> value += 300;
+            case Diamonds -> value += 200;
+            case Clubs -> value += 100;
+        }
+        switch (rank) {
+            case Ace,Two,Three,Four,Five,Six,Seven, Eight,Nine,Ten-> value+=rank.pointsValue;
+            case Jack-> value+=11;
+            case Queen-> value+=12;
+            case King -> value+=13;
+        }
+        return value;
     }
 }
