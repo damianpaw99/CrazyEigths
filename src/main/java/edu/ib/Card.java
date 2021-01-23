@@ -55,11 +55,26 @@ public class Card implements Comparable<Card>{
     /**
      * Button assigned to the Card
      */
-    private Button button;
+    private final Button button;
     /**
      * Deck in which this card is
      */
     private Deck deck;
+
+    /**
+     * @return Deck in which card is
+     */
+    public Deck getDeck() {
+        return deck;
+    }
+
+    /**
+     * Method setting in which deck card is
+     * @param deck New deck for card
+     */
+    public void setDeck(Deck deck) {
+        this.deck = deck;
+    }
 
     /**
      * Card constructor

@@ -1,5 +1,7 @@
 package edu.ib;
 
+import javafx.scene.control.Button;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -7,24 +9,31 @@ import java.util.Collections;
  * Deck class definition
  */
 public class Deck {
-    private ArrayList<Card> listOfCards;
-    private boolean visibility;
+    protected final ArrayList<Card> listOfCards;
+    protected boolean visibility;
+    protected final Game game;
 
     /**
      * Constructs a Deck
      * First "for" loop assigns Suit, second assigns Rank
      * "If" statement allows to assign proper pointsValue
      */
-    public Deck() {
-        this.listOfCards = new ArrayList<Card>();
-
-        for (int i = 0; i < 4; i++) {
-            for (int j = 1; j < 14; j++) {
-                if (j == 1) listOfCards.add(new Card(i, j, 1));
-                else if (j == 11 || j == 12 || j == 13) listOfCards.add(new Card(i, j, 10));
-                else listOfCards.add(new Card(i, j, j));
+    public Deck(Game game) {
+        this.game=game;
+        this.listOfCards = new ArrayList<>();
+        visibility=false;
+    }
+    public void createFullDeck(){
+        Card.Rank[] ranks = Card.Rank.values();
+        Card.Suit[] suits = Card.Suit.values();
+        for (Card.Suit suit : suits) {
+            for (Card.Rank rank : ranks) {
+                listOfCards.add(new Card(this, rank, suit, new Button())); //new Button będzie do podmiany, na razie zaślepka
             }
         }
+    }
+    public void emptyDeck(){
+        listOfCards.clear();
     }
 
     /**
@@ -78,10 +87,19 @@ public class Deck {
     }
 
     /**
-     * @param i intex of the Card that is removed
+     * Method removing card from deck at index i
+     * @param i index of the Card that is removed
      */
     public void removeCard(int i) {
         listOfCards.remove(i);
+    }
+
+    /**
+     * Method removing card from deck
+     * @param card Card to remove
+     */
+    public void removeCard(Card card){
+        listOfCards.remove(card);
     }
 
     /**
@@ -89,6 +107,17 @@ public class Deck {
      */
     public void addCard(Card card) {
         listOfCards.add(card);
+    }
+
+    /**
+     * Method moving card to another deck
+     * @param card Card to move
+     * @param deck New deck for card
+     */
+    public void moveCardToDeck(Card card,Deck deck){
+        listOfCards.remove(card);
+        card.setDeck(deck);
+        deck.addCard(card);
     }
 
     /**
@@ -113,20 +142,19 @@ public class Deck {
      * @return index of given Card in the Deck
      */
     public int getIndex(Card card) {
-        int index = 0;
-        for (int i = 0; i < listOfCards.size(); i++) {
-            if (card.getSuit() == listOfCards.get(i).getSuit() && card.getRank() == listOfCards.get(i).getRank())
-                index = i;
-        }
-        return index;
+            return listOfCards.indexOf(card);
     }
 
     /**
-     * Displays all Cards in the Deck in pattern: "Rank of Suit"
+     * @return Game in which Deck is
      */
+    protected Game getGame(){
+        return game;
+    }
+    /**
+     *
+     */ //do poprawy
     public void display() {
-        for (int i = 0; i < listOfCards.size(); i++) {
-            System.out.println(listOfCards.get(i).toString());
-        }
+
     }
 }
