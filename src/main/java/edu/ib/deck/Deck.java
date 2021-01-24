@@ -1,6 +1,8 @@
-package edu.ib;
+package edu.ib.deck;
 
-import javafx.scene.control.Button;
+import edu.ib.Card;
+import edu.ib.Game;
+import javafx.scene.image.ImageView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -8,11 +10,10 @@ import java.util.Collections;
 /**
  * Deck class definition
  */
-public class Deck {
+public class Deck extends ImageView {
     protected final ArrayList<Card> listOfCards;
     protected boolean visibility;
     protected final Game game;
-
     /**
      * Constructs a Deck
      * First "for" loop assigns Suit, second assigns Rank
@@ -156,7 +157,7 @@ public class Deck {
     /**
      * @return Game in which Deck is
      */
-    protected Game getGame(){
+    public Game getGame(){
         return game;
     }
     /**

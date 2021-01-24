@@ -2,6 +2,8 @@ package edu.ib;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -32,13 +34,25 @@ public class Controller {
         private Text txtRound;
 
         @FXML
-        private ImageView cardToTake;
-
-        @FXML
-        private ImageView playedCard;
-
-        @FXML
         private Button btnTakeCard;
+
+        @FXML
+        void drawFromMainDeck(ActionEvent event) {
+            if(game.isRunning() && game.getPlayerTurn()==0) {
+                game.getMainDeck().moveCardToDeck(game.getMainDeck().getCard(0),game.getPlayers()[0].getHand());
+                game.getPlayers()[0].getHand().sort();
+            }
+        }
+        private void startNewGame(){
+            game=new Game(this);
+            //game.newRound();
+            for(int i =0;i<cardsButtons.length;i++){
+                cardsButtons[i]=game.getMainDeck().getCard(i);
+                canvas.getChildren().add(cardsButtons[i]);
+            }
+            game.newRound();
+            btnTakeCard.setVisible(true);
+        }
 
         @FXML
         void initialize() {
@@ -46,8 +60,6 @@ public class Controller {
             assert txtComputerScore != null : "fx:id=\"txtComputerScore\" was not injected: check your FXML file 'crazy_eights.fxml'.";
             assert txtPlayerScore != null : "fx:id=\"txtPlayerScore\" was not injected: check your FXML file 'crazy_eights.fxml'.";
             assert txtRound != null : "fx:id=\"txtRound\" was not injected: check your FXML file 'crazy_eights.fxml'.";
-            assert cardToTake != null : "fx:id=\"cardToTake\" was not injected: check your FXML file 'crazy_eights.fxml'.";
-            assert playedCard != null : "fx:id=\"playedCard\" was not injected: check your FXML file 'crazy_eights.fxml'.";
             assert btnTakeCard != null : "fx:id=\"btnTakeCard\" was not injected: check your FXML file 'crazy_eights.fxml'.";
             /*
             Button test = new Button();
@@ -57,13 +69,7 @@ public class Controller {
             test.setLayoutY(50);
             canvas.getChildren().add(test);
             */
-            game=new Game(this);
-            //game.newRound();
-            for(int i =0;i<cardsButtons.length;i++){
-                cardsButtons[i]=game.getMainDeck().getCard(i);
-                canvas.getChildren().add(cardsButtons[i]);
-            }
-            game.newRound();
+            startNewGame();
         }
 
 }

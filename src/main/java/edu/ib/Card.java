@@ -1,5 +1,6 @@
 package edu.ib;
 
+import edu.ib.deck.Deck;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
@@ -76,7 +77,7 @@ public class Card extends Button implements Comparable<Card>{
     }
 
     public final Image FRONT_IMAGE;
-    public final Image BACK_IMAGE;
+    public static final Image BACK_IMAGE=new Image("/graphics/back.png");;
 
     /**
      * Card constructor
@@ -84,9 +85,9 @@ public class Card extends Button implements Comparable<Card>{
      * @param rank Rank of card
      * @param suit Suit of card
      */
+
     public Card(Deck deck, Rank rank, Suit suit) {
-        FRONT_IMAGE =new Image("/grafics/8heart.png");
-        BACK_IMAGE =new Image("/grafics/8pikes.png");
+        FRONT_IMAGE =new Image("/graphics/8heart.png");
 
         this.deck=deck;
         this.rank=rank;
@@ -97,13 +98,16 @@ public class Card extends Button implements Comparable<Card>{
         setLayoutY(0);
 
         setVisible(false);
-
         setWidth(64);
         setHeight(87);
         setMinSize(64,87);
         setMaxSize(64,87);
         setText(toString());
-        setOnAction(event -> setLayoutX(getLayoutX()+10));
+        setOnAction(event ->{
+                if(getDeck().getGame().getPlayerTurn()==0) {
+                    getDeck().getGame().getPlayers()[getDeck().getGame().getPlayerTurn()].playCard();
+                }
+        });
     }
 
     /**

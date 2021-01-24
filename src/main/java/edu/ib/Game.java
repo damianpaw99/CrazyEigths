@@ -1,5 +1,11 @@
 package edu.ib;
 
+import edu.ib.deck.Deck;
+import edu.ib.player.AIPlayer;
+import edu.ib.player.HumanPlayer;
+import edu.ib.player.Player;
+import javafx.scene.image.Image;
+
 import java.util.Random;
 
 public class Game {
@@ -8,8 +14,9 @@ public class Game {
     private final Deck mainDeck;
     private final Deck secondDeck;
     private int round=0;
-    private final Player [] players=new Player[2];
+    private final Player[] players=new Player[2];
     private int playerTurn;
+    private boolean gameFinished=false;
 
     /**
      * Game constructor
@@ -19,7 +26,9 @@ public class Game {
         this.controller=controller;
         mainDeck=new Deck(this);
         mainDeck.createFullDeck();
+
         secondDeck=new Deck(this);
+        mainDeck.setImage(new Image("/graphics/back.png"));
         players[0]=new HumanPlayer(this,"Player");
         players[1]=new AIPlayer(this,"Computer");
     }
@@ -40,9 +49,11 @@ public class Game {
         players[0].getHand().sort();
         players[0].getHand().display();
         players[1].getHand().display();
+        mainDeck.setImage(Card.BACK_IMAGE);
+        mainDeck.moveCardToDeck(mainDeck.getCard(0),secondDeck,0);
+        secondDeck.setImage(secondDeck.getCard(0).FRONT_IMAGE);
         running=true;
-        if(playerTurn==1)
-            players[1].playCard();
+        if(playerTurn==1) players[1].playCard();
     }
 
     /**
@@ -55,7 +66,10 @@ public class Game {
 
 
     public void restockMainDeck(){
-
+        for(int i=1;i<secondDeck.size();i++){
+            secondDeck.moveCardToDeck(secondDeck.getCard(i),mainDeck);
+        }
+        mainDeck.randomize();
     }
     /**
      *

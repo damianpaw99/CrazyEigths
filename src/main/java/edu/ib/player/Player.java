@@ -1,10 +1,14 @@
-package edu.ib;
+package edu.ib.player;
+
+import edu.ib.Card;
+import edu.ib.Game;
+import edu.ib.deck.Hand;
 
 public abstract class Player {
-    private Hand hand;
-    private final String name;
-    private int points;
-    private final Game game;
+    protected Hand hand;
+    protected final String name;
+    protected int points;
+    protected final Game game;
 
     /**
      * Player constructor

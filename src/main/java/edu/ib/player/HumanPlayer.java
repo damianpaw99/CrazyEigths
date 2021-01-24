@@ -1,4 +1,7 @@
-package edu.ib;
+package edu.ib.player;
+
+import edu.ib.Card;
+import edu.ib.Game;
 
 public class HumanPlayer extends Player {
 

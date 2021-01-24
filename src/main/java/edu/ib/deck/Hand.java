@@ -1,9 +1,12 @@
-package edu.ib;
+package edu.ib.deck;
+
+import edu.ib.Card;
+import edu.ib.Game;
 
 import java.util.Collections;
 
 
-public class Hand extends Deck{
+public class Hand extends Deck {
 
     public Hand(Game game) {
         super(game);
@@ -34,5 +37,24 @@ public class Hand extends Deck{
                 listOfCards.get(i).setVisible(true);
             }
         }
+
+    }
+    public int getNumberOfRankCards(Card.Rank rank){
+        int count=0;
+        for(int i=0;i<listOfCards.size();i++){
+            if(listOfCards.get(i).getRank().equals(rank)){
+                count++;
+            }
+        }
+        return count;
+    }
+    public int getNumberOfRankSuit(Card.Suit suit){
+        int count=0;
+        for(int i=0;i<listOfCards.size();i++){
+            if(listOfCards.get(i).getSuit().equals(suit)){
+                count++;
+            }
+        }
+        return count;
     }
 }
