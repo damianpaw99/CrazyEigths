@@ -23,12 +23,12 @@
          </font></Text>
       <ImageView fx:id="cardToTake" fitHeight="89.0" fitWidth="64.0" layoutX="431.0" layoutY="298.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../../OneDrive/Pulpit/8.png" />
+            <Image url="@../../../../8heart.png" />
          </image>
       </ImageView>
       <ImageView fx:id="playedCard" fitHeight="89.0" fitWidth="64.0" layoutX="506.0" layoutY="298.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../../OneDrive/Pulpit/8.png" />
+            <Image url="@../../../../8pikes.png" />
          </image>
       </ImageView>
       <Button fx:id="btnTakeCard" layoutX="441.0" layoutY="330.0" mnemonicParsing="false" text="TAKE" visible="false" />
