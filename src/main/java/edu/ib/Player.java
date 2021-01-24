@@ -15,12 +15,16 @@ public abstract class Player {
         this.game=game;
         this.name=name;
         points=0;
+        hand=new Hand(game);
     }
 
     public abstract void playCard();
 
-    public void drawCard(Card card,Deck deck){
-        hand.moveCardToDeck(card, deck);
+    public void drawCard(Card card){
+        if(card.getDeck().size()==1){
+            game.restockMainDeck();
+        }
+        hand.moveCardToDeck(card, hand);
     }
     public void addPoints(int points){
         this.points+=points;

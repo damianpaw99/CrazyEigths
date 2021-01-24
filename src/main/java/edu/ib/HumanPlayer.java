@@ -7,6 +7,13 @@ public class HumanPlayer extends Player {
     }
 
     @Override
+    public void drawCard(Card card) {
+        super.drawCard(card);
+        card.setDisplayedImage(card.FRONT_IMAGE);
+        card.setDisable(false);
+    }
+
+    @Override
     public void playCard() {
 
     }

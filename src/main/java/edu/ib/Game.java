@@ -18,8 +18,9 @@ public class Game {
     public Game(Controller controller){
         this.controller=controller;
         mainDeck=new Deck(this);
+        mainDeck.createFullDeck();
         secondDeck=new Deck(this);
-        players[0]=new HumanPlayer(this,"");
+        players[0]=new HumanPlayer(this,"Player");
         players[1]=new AIPlayer(this,"Computer");
     }
 
@@ -27,18 +28,18 @@ public class Game {
      * Method creating new round
      */
     public void newRound(){
-        mainDeck.createFullDeck();
         mainDeck.randomize();
         secondDeck.emptyDeck();
         round++;
         Random random=new Random();
         playerTurn= random.nextInt(2)+1;
         for(int i=0;i<7;i++){
-            players[0].drawCard(mainDeck.getCard(0),secondDeck);
-            players[1].drawCard(mainDeck.getCard(0),secondDeck);
+            players[0].drawCard(mainDeck.getCard(0));
+            players[1].drawCard(mainDeck.getCard(0));
         }
         players[0].getHand().sort();
         players[0].getHand().display();
+        players[1].getHand().display();
         running=true;
         if(playerTurn==1)
             players[1].playCard();
@@ -52,6 +53,10 @@ public class Game {
         return controller;
     }
 
+
+    public void restockMainDeck(){
+
+    }
     /**
      *
      * @return Game running state

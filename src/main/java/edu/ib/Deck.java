@@ -28,7 +28,7 @@ public class Deck {
         Card.Suit[] suits = Card.Suit.values();
         for (Card.Suit suit : suits) {
             for (Card.Rank rank : ranks) {
-                listOfCards.add(new Card(this, rank, suit, new Button())); //new Button będzie do podmiany, na razie zaślepka
+                listOfCards.add(new Card(this, rank, suit));
             }
         }
     }
@@ -115,7 +115,7 @@ public class Deck {
      * @param deck New deck for card
      */
     public void moveCardToDeck(Card card,Deck deck){
-        listOfCards.remove(card);
+        card.getDeck().removeCard(card);
         card.setDeck(deck);
         deck.addCard(card);
     }

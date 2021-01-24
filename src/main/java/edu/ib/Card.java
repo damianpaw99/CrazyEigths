@@ -1,12 +1,15 @@
 package edu.ib;
 
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
 
 /**
  * Card class definition
  */
 
-public class Card implements Comparable<Card>{
+public class Card extends Button implements Comparable<Card>{
 
 
 
@@ -48,14 +51,10 @@ public class Card implements Comparable<Card>{
         Clubs
     }
 
-
     private final Suit suit;
     private final Rank rank;
 
-    /**
-     * Button assigned to the Card
-     */
-    private final Button button;
+
     /**
      * Deck in which this card is
      */
@@ -76,18 +75,35 @@ public class Card implements Comparable<Card>{
         this.deck = deck;
     }
 
+    public final Image FRONT_IMAGE;
+    public final Image BACK_IMAGE;
+
     /**
      * Card constructor
      * @param deck Deck in witch this card is
      * @param rank Rank of card
      * @param suit Suit of card
-     * @param button Button of card
      */
-    public Card(Deck deck, Rank rank, Suit suit, Button button) {
-        this.button=button;
+    public Card(Deck deck, Rank rank, Suit suit) {
+        FRONT_IMAGE =new Image("/grafics/8heart.png");
+        BACK_IMAGE =new Image("/grafics/8pikes.png");
+
         this.deck=deck;
         this.rank=rank;
         this.suit=suit;
+
+        this.setBackground(new Background(new BackgroundImage(FRONT_IMAGE,null,null,null, null)));
+        setLayoutX(0);
+        setLayoutY(0);
+
+        setVisible(false);
+
+        setWidth(64);
+        setHeight(87);
+        setMinSize(64,87);
+        setMaxSize(64,87);
+        setText(toString());
+        setOnAction(event -> setLayoutX(getLayoutX()+10));
     }
 
     /**
@@ -116,13 +132,6 @@ public class Card implements Comparable<Card>{
     }
 
     /**
-     * @return Button assigned to the Card
-     */
-    public Button getButton() {
-        return button;
-    }
-
-    /**
      * Method finding position of card in deck
      * @return Card index in deck
      */
@@ -135,7 +144,7 @@ public class Card implements Comparable<Card>{
      * @return Basic info about card in String
      */
     public String toString() {
-        return suit.toString()+" "+rank.toString();
+        return suit.toString()+"\n"+rank.toString();
     }
 
     /**
@@ -169,5 +178,9 @@ public class Card implements Comparable<Card>{
             case King -> value+=13;
         }
         return value;
+    }
+
+    public void setDisplayedImage(Image image) {
+        setBackground(new Background(new BackgroundImage(image,null,null,null, null)));
     }
 }
