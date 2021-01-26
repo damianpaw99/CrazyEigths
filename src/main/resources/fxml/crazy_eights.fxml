@@ -1,24 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <AnchorPane fx:id="canvas" prefHeight="700.0" prefWidth="1000.0" style="-fx-background-color: #357835;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ib.Controller">
    <children>
-      <Text fx:id="txtComputerScore" fill="#0014af" layoutX="850.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="computer's score">
+      <Text fx:id="txtComputerScore" layoutX="824.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="computer's score">
          <font>
-            <Font size="18.0" />
+            <Font name="Algerian" size="18.0" />
          </font></Text>
-      <Text fx:id="txtPlayerScore" fill="#0014af" layoutX="878.0" layoutY="680.0" strokeType="OUTSIDE" strokeWidth="0.0" text="player's score">
+      <Text fx:id="txtPlayerScore" layoutX="834.0" layoutY="681.0" strokeType="OUTSIDE" strokeWidth="0.0" text="player's score">
          <font>
-            <Font size="18.0" />
+            <Font name="Algerian" size="18.0" />
          </font></Text>
-      <Text fx:id="txtRound" fill="#0014af" layoutX="903.0" layoutY="357.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ROUND: 1">
+      <Text fx:id="txtRound" layoutX="905.0" layoutY="355.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ROUND: 1">
          <font>
-            <Font size="18.0" />
+            <Font name="Algerian" size="18.0" />
          </font></Text>
       <Button fx:id="btnTakeCard" layoutX="441.0" layoutY="330.0" mnemonicParsing="false" onAction="#drawFromMainDeck" text="TAKE" visible="false" />
+      <Button fx:id="btnStart" layoutX="14.0" layoutY="370.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="208.0" text="START" />
+      <TextField fx:id="editTxtFinishingPoints" alignment="CENTER" layoutX="14.0" layoutY="336.0" prefHeight="26.0" prefWidth="208.0" text="70" />
+      <Text layoutX="14.0" layoutY="325.0" strokeType="OUTSIDE" strokeWidth="0.0" text="To how many points we play?">
+         <font>
+            <Font name="Algerian" size="14.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>
