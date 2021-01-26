@@ -16,13 +16,40 @@ public class Game {
     private int round=0;
     private final Player[] players=new Player[2];
     private int playerTurn;
+    private int valueToEnd;
+
+    public boolean isGameFinished() {
+        return gameFinished;
+    }
+
+    public void setGameFinished(boolean gameFinished) {
+        this.gameFinished = gameFinished;
+    }
+
+    public CardColor getCardColor() {
+        return cardColor;
+    }
+
+    public void setCardColor(CardColor cardColor) {
+        this.cardColor = cardColor;
+    }
+
     private boolean gameFinished=false;
+    private CardColor cardColor=CardColor.Normal;
+    public enum CardColor{
+        Hearts,
+        Clubs,
+        Diamonds,
+        Spades,
+        Normal
+    }
 
     /**
      * Game constructor
      * @param controller Controller
      */
-    public Game(Controller controller){
+    public Game(Controller controller, int valueToEnd){
+        this.valueToEnd=valueToEnd;
         this.controller=controller;
         mainDeck=new Deck(this);
         mainDeck.createFullDeck();
@@ -52,8 +79,10 @@ public class Game {
         mainDeck.setImage(Card.BACK_IMAGE);
         mainDeck.moveCardToDeck(mainDeck.getCard(0),secondDeck,0);
         secondDeck.setImage(secondDeck.getCard(0).FRONT_IMAGE);
+        mainDeck.display();
+        secondDeck.display();
         running=true;
-        if(playerTurn==1) players[1].playCard();
+        if(playerTurn==1) players[1].playCard(null);
     }
 
     /**
@@ -71,6 +100,29 @@ public class Game {
         }
         mainDeck.randomize();
     }
+
+    public void finishRound(Player player){
+        Player pl;
+        Player pw;
+        if(players[0].equals(player)){
+            pw=players[0];
+            pl=players[1];
+        } else {
+            pw=players[1];
+            pl=players[0];
+        }
+        int p=0;
+        for(int i=0;i<pl.getHand().size();i++){
+            player.addPoints(pl.getHand().getCard(i).getPointsValue());
+        }
+        if(pw.getPoints()>valueToEnd){
+            finishGame();
+        }
+    }
+    public void finishGame(){
+
+    }
+
     /**
      *
      * @return Game running state

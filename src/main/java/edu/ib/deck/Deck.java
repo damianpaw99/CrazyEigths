@@ -24,6 +24,13 @@ public class Deck extends ImageView {
         this.listOfCards = new ArrayList<>();
         visibility=false;
     }
+    public Deck(Game game, int x, int y) {
+        this.game=game;
+        this.listOfCards = new ArrayList<>();
+        visibility=true;
+        this.setLayoutX(x);
+        this.setLayoutY(y);
+    }
     public void createFullDeck(){
         Card.Rank[] ranks = Card.Rank.values();
         Card.Suit[] suits = Card.Suit.values();

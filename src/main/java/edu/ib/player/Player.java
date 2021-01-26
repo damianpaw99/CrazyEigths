@@ -22,7 +22,7 @@ public abstract class Player {
         hand=new Hand(game);
     }
 
-    public abstract void playCard();
+    public abstract void playCard(Card card);
 
     public void drawCard(Card card){
         if(card.getDeck().size()==1){

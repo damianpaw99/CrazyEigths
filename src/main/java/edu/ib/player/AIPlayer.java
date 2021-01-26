@@ -15,13 +15,13 @@ public class AIPlayer extends Player {
     public void drawCard(Card card) {
         super.drawCard(card);
         //card.setDisplayedImage(card.BACK_IMAGE);
-        card.setDisable(true);
-        card.setDisplayedImage(card.BACK_IMAGE);
+        //card.setDisplayedImage(Card.BACK_IMAGE);
+        card.setDisplayedImage(card.FRONT_IMAGE);
 
     }
 
     @Override
-    public void playCard() {
+    public void playCard(Card c) {
         ArrayList<Card> list = new ArrayList<>();
         ArrayList<Integer> playValue = new ArrayList<>();
 

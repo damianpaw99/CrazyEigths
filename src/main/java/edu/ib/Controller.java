@@ -44,7 +44,7 @@ public class Controller {
             }
         }
         private void startNewGame(){
-            game=new Game(this);
+            game=new Game(this,50);
             //game.newRound();
             for(int i =0;i<cardsButtons.length;i++){
                 cardsButtons[i]=game.getMainDeck().getCard(i);

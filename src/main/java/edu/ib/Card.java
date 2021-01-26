@@ -46,10 +46,10 @@ public class Card extends Button implements Comparable<Card>{
      * Enum class of possible suits of card
      */
     public enum Suit{
-        Hearts,
-        Spades,
-        Diamonds,
-        Clubs
+        Hearts, //heart
+        Spades, //pike
+        Diamonds, //diamonds
+        Clubs //clover
     }
 
     private final Suit suit;
@@ -76,7 +76,7 @@ public class Card extends Button implements Comparable<Card>{
         this.deck = deck;
     }
 
-    public final Image FRONT_IMAGE;
+    public Image FRONT_IMAGE;
     public static final Image BACK_IMAGE=new Image("/graphics/back.png");;
 
     /**
@@ -87,7 +87,12 @@ public class Card extends Button implements Comparable<Card>{
      */
 
     public Card(Deck deck, Rank rank, Suit suit) {
-        FRONT_IMAGE =new Image("/graphics/8heart.png");
+        try {
+            FRONT_IMAGE = new Image("/graphics/" + rank.toString() + "_" + suit.toString() + ".png");
+        } catch(Exception e){
+            FRONT_IMAGE = new Image("/graphics/blank.png");
+            this.setText(rank.toString() + "\n" + suit.toString());
+        }
 
         this.deck=deck;
         this.rank=rank;
@@ -102,10 +107,10 @@ public class Card extends Button implements Comparable<Card>{
         setHeight(87);
         setMinSize(64,87);
         setMaxSize(64,87);
-        setText(toString());
+
         setOnAction(event ->{
                 if(getDeck().getGame().getPlayerTurn()==0) {
-                    getDeck().getGame().getPlayers()[getDeck().getGame().getPlayerTurn()].playCard();
+                    getDeck().getGame().getPlayers()[getDeck().getGame().getPlayerTurn()].playCard(this);
                 }
         });
     }
