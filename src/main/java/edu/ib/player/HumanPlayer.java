@@ -60,6 +60,7 @@ public class HumanPlayer extends Player {
             game.setPlayerTurn(1);
             game.getPlayers()[1].playCard(null);
             game.getSecondDeck().setImage(card.FRONT_IMAGE);
+            game.setCardColor(Game.CardColor.Normal);
         }
 
     }
