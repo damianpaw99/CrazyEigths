@@ -9,15 +9,12 @@ import javafx.scene.layout.BackgroundImage;
 /**
  * Card class definition
  */
-
-public class Card extends Button implements Comparable<Card>{
-
-
+public class Card extends Button implements Comparable<Card> {
 
     /**
-     * Enum class of possible ranks of Card and with value of each rank
+     * Enum class of possible Ranks of Card and with point value of each Rank
      */
-    public enum Rank{
+    public enum Rank {
         Ace(1),
         Two(2),
         Three(3),
@@ -34,18 +31,19 @@ public class Card extends Button implements Comparable<Card>{
 
         int pointsValue;
 
-        Rank(int pointsValue){
-            this.pointsValue=pointsValue;
+        Rank(int pointsValue) {
+            this.pointsValue = pointsValue;
         }
-        int getPointsValue(){
+
+        int getPointsValue() {
             return pointsValue;
         }
     }
 
     /**
-     * Enum class of possible suits of card
+     * Enum class of possible Suits of Card
      */
-    public enum Suit{
+    public enum Suit {
         Hearts, //heart
         Spades, //pike
         Diamonds, //diamonds
@@ -55,125 +53,147 @@ public class Card extends Button implements Comparable<Card>{
     private final Suit suit;
     private final Rank rank;
 
-
     /**
-     * Deck in which this card is
+     * Deck in which the Card is
      */
     private Deck deck;
 
-    /**
-     * @return Deck in which card is
-     */
-    public Deck getDeck() {
-        return deck;
-    }
-
-    /**
-     * Method setting in which deck card is
-     * @param deck New deck for card
-     */
-    public void setDeck(Deck deck) {
-        this.deck = deck;
-    }
-
     public Image FRONT_IMAGE;
-    public static final Image BACK_IMAGE=new Image("/graphics/back.png");;
+    public static final Image BACK_IMAGE = new Image("/graphics/back.png");
 
     /**
      * Card constructor
+     *
      * @param deck Deck in witch this card is
      * @param rank Rank of card
      * @param suit Suit of card
      */
-
     public Card(Deck deck, Rank rank, Suit suit) {
         try {
             FRONT_IMAGE = new Image("/graphics/" + rank.toString() + "_" + suit.toString() + ".png");
-        } catch(Exception e){
+        } catch (Exception e) {
             FRONT_IMAGE = new Image("/graphics/blank.png");
             this.setText(rank.toString() + "\n" + suit.toString());
         }
 
-        this.deck=deck;
-        this.rank=rank;
-        this.suit=suit;
+        this.deck = deck;
+        this.rank = rank;
+        this.suit = suit;
 
-        this.setBackground(new Background(new BackgroundImage(FRONT_IMAGE,null,null,null, null)));
+        this.setBackground(new Background(new BackgroundImage(FRONT_IMAGE, null, null, null, null)));
         setLayoutX(0);
         setLayoutY(0);
 
         setVisible(false);
         setWidth(64);
         setHeight(87);
-        setMinSize(64,87);
-        setMaxSize(64,87);
+        setMinSize(64, 87);
+        setMaxSize(64, 87);
 
-        setOnAction(event ->{
-                if(getDeck().getGame().getPlayerTurn()==0) {
-                    getDeck().getGame().getPlayers()[getDeck().getGame().getPlayerTurn()].playCard(this);
-                }
+        setOnAction(event -> {
+            if (getDeck().getGame().getPlayerTurn() == 0) {
+                getDeck().getGame().getPlayers()[getDeck().getGame().getPlayerTurn()].playCard(this);
+            }
         });
     }
 
     /**
-     * @return int with rank/value of the Card
+     * Method to get the Deck in which the Card is
+     *
+     * @return Deck in which the Card is
+     */
+    public Deck getDeck() {
+        return deck;
+    }
+
+    /**
+     * Method setting a Deck in which the Card is
+     *
+     * @param deck new deck for the Card
+     */
+    public void setDeck(Deck deck) {
+        this.deck = deck;
+    }
+
+    /**
+     * Method to get the Rank of the Card
+     *
+     * @return Rank (value) of the Card
      */
     public Rank getRank() {
         return rank;
     }
 
     /**
-     * @return String with color of the Card
+     * Method to get the Suit of the Card
+     *
+     * @return Suit (colour) of the Card
      */
     public Suit getSuit() {
         return suit;
     }
 
     /**
+     * Method to get the PointsValue of the Card
+     *
      * Points value of:
      * Ace - 1 point
      * 2-10 - accordingly, 2-10 points
      * Jack, Queen, King - 10 points each
-     * @return int with points value of the Card
+     *
+     * @return PointsValue of the Card as int
      */
     public int getPointsValue() {
         return rank.getPointsValue();
     }
 
     /**
-     * Method finding position of card in deck
-     * @return Card index in deck
+     * Method finding position of Card in the Deck
+     *
+     * @return Card index in the Deck as int
      */
     public int findPlaceInDeck() {
         return deck.getIndex(this);
     }
 
     /**
-     * Overridden to String method from Object class
+     * Method to set an Image a background of the Card
+     *
+     * @param image Image that is set as Background of the Card
+     */
+    public void setDisplayedImage(Image image) {
+        setBackground(new Background(new BackgroundImage(image, null, null, null, null)));
+    }
+
+    /**
+     * Overridden toString() method from Object class
+     *
      * @return Basic info about card in String
      */
     public String toString() {
-        return suit.toString()+"\n"+rank.toString();
+        return suit.toString() + "\n" + rank.toString();
     }
 
     /**
      * Overridden method from Comparable interface
+     *
      * @param card Another Card object to compare
-     * @return -1 if card is lower than another card,
-     * 0 if card is equal another card,
-     * 1 if card is grater then another card
+     * @return -1 if Card is lower than another Card,
+     * 0 if Card is equal to another Card,
+     * 1 if Card is greater than another Card
      */
     @Override
     public int compareTo(Card card) {
-        return (int) Math.signum(compareValueOfCard()-card.compareValueOfCard());
+        return (int) Math.signum(compareValueOfCard() - card.compareValueOfCard());
     }
 
     /**
      * Method counting comparing value of card
-     * @return Compering value of card
+     *
+     * @return Comparing value of card
      */
-    private int compareValueOfCard(){
-        int value=0;
+    private int compareValueOfCard() {
+        int value = 0;
         switch (suit) {
             case Spades -> value += 400;
             case Hearts -> value += 300;
@@ -181,15 +201,11 @@ public class Card extends Button implements Comparable<Card>{
             case Clubs -> value += 100;
         }
         switch (rank) {
-            case Ace,Two,Three,Four,Five,Six,Seven, Eight,Nine,Ten-> value+=rank.pointsValue;
-            case Jack-> value+=11;
-            case Queen-> value+=12;
-            case King -> value+=13;
+            case Ace, Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten -> value += rank.pointsValue;
+            case Jack -> value += 11;
+            case Queen -> value += 12;
+            case King -> value += 13;
         }
         return value;
-    }
-
-    public void setDisplayedImage(Image image) {
-        setBackground(new Background(new BackgroundImage(image,null,null,null, null)));
     }
 }

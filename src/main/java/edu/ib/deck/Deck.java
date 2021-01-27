@@ -11,38 +11,50 @@ import java.util.Collections;
  * Deck class definition
  */
 public class Deck extends ImageView {
+
     protected final ArrayList<Card> listOfCards;
     protected boolean visibility;
     protected final Game game;
+
     /**
-     * Constructs a Deck
-     * First "for" loop assigns Suit, second assigns Rank
-     * "If" statement allows to assign proper pointsValue
+     * Deck constructor
+     *
+     * @param game to which Deck is assigned to
      */
     public Deck(Game game) {
-        this.game=game;
+        this.game = game;
         this.listOfCards = new ArrayList<>();
-        visibility=false;
+        visibility = false;
     }
+
     public Deck(Game game, int x, int y) {
-        this.game=game;
+        this.game = game;
         this.listOfCards = new ArrayList<>();
-        visibility=true;
+        visibility = true;
         this.setLayoutX(x);
         this.setLayoutY(y);
     }
-    public void createFullDeck(){
+
+    /**
+     * Constructs a full Deck
+     * First "for" loop assigns Suit, second assigns Rank
+     */
+    public void createFullDeck() {
         Card.Rank[] ranks = Card.Rank.values();
         Card.Suit[] suits = Card.Suit.values();
-        for (int i=0;i< suits.length;i++) {
-            for (int j=0;j< ranks.length;j++) {
+        for (int i = 0; i < suits.length; i++) {
+            for (int j = 0; j < ranks.length; j++) {
                 listOfCards.add(new Card(this, ranks[j], suits[i]));
-                game.getController().getCanvas().getChildren().add(listOfCards.get(listOfCards.size()-1));
+                game.getController().getCanvas().getChildren().add(listOfCards.get(listOfCards.size() - 1));
             }
         }
     }
-    public void emptyDeck(){
-        for(int i=0;i<listOfCards.size();i++){
+
+    /**
+     * Method to empty existing Deck
+     */
+    public void emptyDeck() {
+        for (int i = 0; i < listOfCards.size(); i++) {
             game.getController().getCanvas().getChildren().remove(listOfCards.get(i));
         }
         listOfCards.clear();
@@ -85,58 +97,76 @@ public class Deck extends ImageView {
     }
 
     /**
-     * Shuffles the Deck
+     * Method to shuffle the Deck
      */
     public void randomize() {
         Collections.shuffle(listOfCards);
     }
 
     /**
-     * Clears listOfCards - sets all elements to null
+     * Method to clear the listOfCards - sets all elements to null
      */
     public void clearDeck() {
         listOfCards.clear();
     }
 
     /**
-     * Method removing card from deck at index i
-     * @param i index of the Card that is removed
+     * Method removing card from the Deck at index i
+     *
+     * @param i index of the Card that is removed from the listOfCards
      */
     public void removeCard(int i) {
         listOfCards.remove(i);
     }
 
     /**
-     * Method removing card from deck
-     * @param card Card to remove
+     * Method removing card from the Deck
+     *
+     * @param card Card that is removed from the listOfCards
      */
-    public void removeCard(Card card){
+    public void removeCard(Card card) {
         listOfCards.remove(card);
     }
 
     /**
-     * @param card adds given Card to the Deck
+     * @param card Card that is added to the listOfCards
      */
     public void addCard(Card card) {
         listOfCards.add(card);
     }
 
     /**
-     * Method moving card to another deck
-     * @param card Card to move
-     * @param deck New deck for card
+     * Method moving Card to another Deck
+     *
+     * @param card Card that is moved
+     * @param deck new Deck for the moved Card
      */
-    public void moveCardToDeck(Card card,Deck deck){
+    public void moveCardToDeck(Card card, Deck deck) {
         card.getDeck().removeCard(card);
         card.setDeck(deck);
         deck.addCard(card);
     }
-    public void moveCardToDeck(Card card,Deck deck,int index){
+
+    /**
+     * Method moving Card to another Deck
+     *
+     * @param card  Card that is moved
+     * @param deck  new Deck for the moved Card
+     * @param index index in the Deck, where Card is moved
+     */
+    public void moveCardToDeck(Card card, Deck deck, int index) {
         card.getDeck().removeCard(card);
         card.setDeck(deck);
         deck.addCard(index, card);
     }
-    public void addCard(int index, Card card){
+
+    /**
+     * Method to add Card to the Deck
+     *
+     * @param index index in the Deck, where Card is added
+     * @param card  Card that is added to the Deck
+     */
+    public void addCard(int index, Card card) {
         listOfCards.add(index, card);
     }
 
@@ -148,7 +178,7 @@ public class Deck extends ImageView {
     }
 
     /**
-     * Swaps two Cards in listOfCards
+     * Method to swap two Cards in the Deck
      *
      * @param i index of first Card
      * @param j index of second Card
@@ -162,17 +192,13 @@ public class Deck extends ImageView {
      * @return index of given Card in the Deck
      */
     public int getIndex(Card card) {
-            return listOfCards.indexOf(card);
+        return listOfCards.indexOf(card);
     }
 
     /**
-     * @return Game in which Deck is
+     * @return Game in which the Deck is
      */
-    public Game getGame(){
+    public Game getGame() {
         return game;
     }
-    /**
-     *
-     */ //do poprawy
-
 }

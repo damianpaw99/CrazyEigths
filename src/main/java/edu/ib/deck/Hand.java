@@ -5,24 +5,36 @@ import edu.ib.Game;
 
 import java.util.Collections;
 
-
+/**
+ * Hand class definition
+ */
 public class Hand extends Deck {
 
+    /**
+     * Hand constructor
+     *
+     * @param game to which the Hand is assigned to
+     */
     public Hand(Game game) {
         super(game);
     }
 
-    public void sort(){
+    /**
+     * Method to sort and dispay the Hand
+     */
+    public void sort() {
         Collections.sort(listOfCards);
         display();
     }
 
-
-    public void display(){
+    /**
+     * Method to sort Cards in the Hand
+     */
+    public void display() {
         int xLeft = 180;
         int xRight = 820;
         double step = (xRight - xLeft) / (double) listOfCards.size();
-        if(game.getPlayers()[0].getHand().equals(this)) {
+        if (game.getPlayers()[0].getHand().equals(this)) {
             int h = 610;
             for (int i = 0; i < listOfCards.size(); i++) {
                 listOfCards.get(i).setLayoutX(xLeft + step * i);
@@ -37,10 +49,16 @@ public class Hand extends Deck {
                 listOfCards.get(i).setVisible(true);
             }
         }
-
     }
-    public int getNumberOfRankCards(Card.Rank rank){
-        int count=0;
+
+    /**
+     * Method to get the number of Cards with given Rank
+     *
+     * @param rank Rank that is counted
+     * @return number of Cards with given Rank as int
+     */
+    public int getNumberOfRankCards(Card.Rank rank) {
+        int count = 0;
         for (Card listOfCard : listOfCards) {
             if (listOfCard.getRank().equals(rank)) {
                 count++;
@@ -48,8 +66,15 @@ public class Hand extends Deck {
         }
         return count;
     }
-    public int getNumberOfRankSuit(Card.Suit suit){
-        int count=0;
+
+    /**
+     * Method to get the number of Cards with given Suit
+     *
+     * @param suit Suit that is counted
+     * @return number of Cards with given Rank as int
+     */
+    public int getNumberOfRankSuit(Card.Suit suit) {
+        int count = 0;
         for (Card listOfCard : listOfCards) {
             if (listOfCard.getSuit().equals(suit)) {
                 count++;
@@ -57,5 +82,4 @@ public class Hand extends Deck {
         }
         return count;
     }
-
 }

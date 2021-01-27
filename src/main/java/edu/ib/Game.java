@@ -6,37 +6,25 @@ import edu.ib.player.HumanPlayer;
 import edu.ib.player.Player;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
+
 import java.util.Random;
 
+/**
+ * Game class definition
+ */
 public class Game {
     private final Controller controller;
-    private boolean running=false;
+    private boolean running = false;
     private final Deck mainDeck;
     private final Deck secondDeck;
-    private int round=0;
-    private final Player[] players=new Player[2];
+    private int round = 0;
+    private final Player[] players = new Player[2];
     private int playerTurn;
     private int valueToEnd;
+    private boolean gameFinished = false;
+    private CardColor cardColor = CardColor.Normal;
 
-    public boolean isGameFinished() {
-        return gameFinished;
-    }
-
-    public void setGameFinished(boolean gameFinished) {
-        this.gameFinished = gameFinished;
-    }
-
-    public CardColor getCardColor() {
-        return cardColor;
-    }
-
-    public void setCardColor(CardColor cardColor) {
-        this.cardColor = cardColor;
-    }
-
-    private boolean gameFinished=false;
-    private CardColor cardColor=CardColor.Normal;
-    public enum CardColor{
+    public enum CardColor {
         Hearts,
         Clubs,
         Diamonds,
@@ -46,24 +34,153 @@ public class Game {
 
     /**
      * Game constructor
+     *
      * @param controller Controller
+     * @param valueToEnd value of Points to end the Game
      */
-    public Game(Controller controller, int valueToEnd){
-        this.valueToEnd=valueToEnd;
-        this.controller=controller;
-        mainDeck=new Deck(this);
+    public Game(Controller controller, int valueToEnd) {
+        this.valueToEnd = valueToEnd;
+        this.controller = controller;
+        mainDeck = new Deck(this);
         //mainDeck.createFullDeck();
 
-        secondDeck=new Deck(this);
+        secondDeck = new Deck(this);
         mainDeck.setImage(new Image("/graphics/back.png"));
-        players[0]=new HumanPlayer(this,"Player");
-        players[1]=new AIPlayer(this,"Computer");
+        players[0] = new HumanPlayer(this, "Player");
+        players[1] = new AIPlayer(this, "Computer");
     }
 
     /**
-     * Method creating new round
+     * Method to check if Game if finished
+     *
+     * @return gameFinished value as boolean
      */
-    public void newRound(){
+    public boolean isGameFinished() {
+        return gameFinished;
+    }
+
+    /**
+     * Method to set value of gameFinished
+     *
+     * @param gameFinished new value of gameFinished
+     */
+    public void setGameFinished(boolean gameFinished) {
+        this.gameFinished = gameFinished;
+    }
+
+    /**
+     * Method to get the CardColor
+     *
+     * @return CardColor
+     */
+    public CardColor getCardColor() {
+        return cardColor;
+    }
+
+    /**
+     * Method to set the CardColor
+     *
+     * @param cardColor new value of CardColor
+     */
+    public void setCardColor(CardColor cardColor) {
+        this.cardColor = cardColor;
+    }
+
+    /**
+     * Method to check if the Game is running
+     *
+     * @return value of Running as boolean
+     */
+    public boolean isRunning() {
+        return running;
+    }
+
+    /**
+     * Method to set Running of the Game
+     *
+     * @param running new value of Running of the Game
+     */
+    public void setRunning(boolean running) {
+        this.running = running;
+    }
+
+    /**
+     * Method to get the mainDeck of the Game
+     *
+     * @return mainDeck of the Game
+     */
+    public Deck getMainDeck() {
+        return mainDeck;
+    }
+
+    /**
+     * Method to get the secondDeck of the game
+     *
+     * @return second Deck of the Game
+     */
+    public Deck getSecondDeck() {
+        return secondDeck;
+    }
+
+    /**
+     * Method to get the ROund of the Game
+     *
+     * @return round of the Game as int
+     */
+    public int getRound() {
+        return round;
+    }
+
+    /**
+     * Method to set the Round of the Game
+     *
+     * @param round new value of the Round
+     */
+    public void setRound(int round) {
+        this.round = round;
+    }
+
+    /**
+     * Method to get Players taking part in the game
+     *
+     * @return Players taking part in the Game as Array of Players
+     */
+    public Player[] getPlayers() {
+        return players;
+    }
+
+    /**
+     * Method to get the playerTurn
+     *
+     * @return playerTurn as int
+     */
+    public int getPlayerTurn() {
+        return playerTurn;
+    }
+
+    /**
+     * Method to set the playerTurn
+     *
+     * @param playerTurn new playerTurn value
+     */
+    public void setPlayerTurn(int playerTurn) {
+        this.playerTurn = playerTurn;
+    }
+
+
+    /**
+     * Method to get the Controller of the Game
+     *
+     * @return Controller of the Game
+     */
+    public Controller getController() {
+        return controller;
+    }
+
+    /**
+     * Method to create new round
+     */
+    public void newRound() {
         secondDeck.emptyDeck();
         mainDeck.emptyDeck();
         players[0].getHand().emptyDeck();
@@ -71,10 +188,10 @@ public class Game {
         mainDeck.createFullDeck();
         mainDeck.randomize();
         round++;
-        Random random=new Random();
+        Random random = new Random();
         //playerTurn= random.nextInt(2)+1;
-        playerTurn=0;
-        for(int i=0;i<7;i++){
+        playerTurn = 0;
+        for (int i = 0; i < 7; i++) {
             players[0].drawCard(mainDeck.getCard(0));
             players[1].drawCard(mainDeck.getCard(0));
         }
@@ -83,94 +200,61 @@ public class Game {
         players[1].getHand().display();
 
         mainDeck.setImage(Card.BACK_IMAGE);
-        mainDeck.moveCardToDeck(mainDeck.getCard(0),secondDeck,0);
+        mainDeck.moveCardToDeck(mainDeck.getCard(0), secondDeck, 0);
         secondDeck.setImage(secondDeck.getCard(0).FRONT_IMAGE);
-        running=true;
-        if(playerTurn==1) players[1].playCard(null);
+        running = true;
+        if (playerTurn == 1) players[1].playCard(null);
     }
 
     /**
-     *
-     * @return Controller
+     * Method to restock the mainDeck of the Game
      */
-    public Controller getController() {
-        return controller;
-    }
-
-
-    public void restockMainDeck(){
-        for(int i=1;i<secondDeck.size();i++){
-            secondDeck.moveCardToDeck(secondDeck.getCard(i),mainDeck);
+    public void restockMainDeck() {
+        for (int i = 1; i < secondDeck.size(); i++) {
+            secondDeck.moveCardToDeck(secondDeck.getCard(i), mainDeck);
         }
         mainDeck.randomize();
     }
 
-    public void finishRound(Player player){
+    /**
+     * Method to finsih the rounc
+     *
+     * @param player Player who made the last move in the round
+     */
+    public void finishRound(Player player) {
         Player pl;
         Player pw;
-        if(players[0].equals(player)){
-            pw=players[0];
-            pl=players[1];
+        if (players[0].equals(player)) {
+            pw = players[0];
+            pl = players[1];
         } else {
-            pw=players[1];
-            pl=players[0];
+            pw = players[1];
+            pl = players[0];
         }
-        int p=0;
-        for(int i=0;i<pl.getHand().size();i++){
+        int p = 0;
+        for (int i = 0; i < pl.getHand().size(); i++) {
             player.addPoints(pl.getHand().getCard(i).getPointsValue());
         }
-        if(pw.getPoints()>valueToEnd){
+        if (pw.getPoints() > valueToEnd) {
             finishGame();
         }
         mainDeck.emptyDeck();
         controller.getNewRoundButton().setVisible(true);
     }
-    public void finishGame(){
+
+    /**
+     * Method to finish the Game
+     */
+    public void finishGame() {
 
     }
 
     /**
-     *
-     * @return Game running state
+     * Method to display the Buttons with Colours
      */
-    public boolean isRunning() {
-        return running;
-    }
-
-    public void setRunning(boolean running) {
-        this.running = running;
-    }
-
-    public Deck getMainDeck() {
-        return mainDeck;
-    }
-
-    public Deck getSecondDeck() {
-        return secondDeck;
-    }
-
-    public int getRound() {
-        return round;
-    }
-
-    public void setRound(int round) {
-        this.round = round;
-    }
-
-    public Player[] getPlayers() {
-        return players;
-    }
-
-    public int getPlayerTurn() {
-        return playerTurn;
-    }
-
-    public void setPlayerTurn(int playerTurn) {
-        this.playerTurn = playerTurn;
-    }
-    public void displayColorButtons(){
-        Button [] b=getController().getColorButtons();
-        for(int i=0;i<b.length;i++){
+    public void displayColorButtons() {
+        Button[] b = getController().getColorButtons();
+        for (int i = 0; i < b.length; i++) {
             b[i].setVisible(true);
         }
     }

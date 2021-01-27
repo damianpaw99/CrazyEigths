@@ -15,6 +15,9 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.text.Text;
 
+/**
+ * Controller class definition
+ */
 public class Controller {
     private Game game;
     Button[] cardsButtons = new Button[52];
@@ -113,12 +116,13 @@ public class Controller {
         game.newRound();
         newRoundButton.setVisible(false);
     }
+
     @FXML
     void drawFromMainDeck(ActionEvent event) {
         if (game.isRunning() && game.getPlayerTurn() == 0) {
             try {
                 game.getPlayers()[0].drawCard(game.getMainDeck().getCard(0));
-            } catch(NullPointerException e){
+            } catch (NullPointerException e) {
                 e.getStackTrace();
                 game.restockMainDeck();
                 game.getPlayers()[0].drawCard(game.getMainDeck().getCard(0));
@@ -141,10 +145,12 @@ public class Controller {
         return imageSuit;
     }
 
+    /**
+     * Method to start a new Game
+     */
     private void startNewGame() {
         try {
             game = new Game(this, Integer.parseInt(editTxtFinishingPoints.getText()));
-
 
             game.newRound();
 
@@ -182,8 +188,8 @@ public class Controller {
                 button.setMinHeight(50);
                 button.setVisible(false);
                 try {
-                    button.setBackground(new Background(new BackgroundImage(new Image("/graphics/" + suit[i].toString()+".png"), null, null, null, null)));
-                } catch(Exception e) {
+                    button.setBackground(new Background(new BackgroundImage(new Image("/graphics/" + suit[i].toString() + ".png"), null, null, null, null)));
+                } catch (Exception e) {
                     e.getStackTrace();
                     button.setBackground(new Background(new BackgroundImage(new Image("/graphics/blank.png"), null, null, null, null)));
                 }
@@ -208,14 +214,21 @@ public class Controller {
         } catch (Exception e) {
             e.getStackTrace();
         }
-
     }
-    void hideColorButtons(){
+
+    /**
+     * Method to hide the Buttons with Colours
+     */
+    void hideColorButtons() {
         for (Button colorButton : colorButtons) {
             colorButton.setVisible(false);
         }
     }
-    void showColorButtons(){
+
+    /**
+     * Method to show the Buttons with Colours
+     */
+    void showColorButtons() {
         for (Button colorButton : colorButtons) {
             colorButton.setVisible(true);
         }
