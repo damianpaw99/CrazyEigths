@@ -170,7 +170,5 @@ public class Deck extends ImageView {
     /**
      *
      */ //do poprawy
-    public void display() {
 
-    }
 }

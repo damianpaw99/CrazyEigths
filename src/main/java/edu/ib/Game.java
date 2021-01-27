@@ -4,8 +4,8 @@ import edu.ib.deck.Deck;
 import edu.ib.player.AIPlayer;
 import edu.ib.player.HumanPlayer;
 import edu.ib.player.Player;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
-
 import java.util.Random;
 
 public class Game {
@@ -68,7 +68,8 @@ public class Game {
         secondDeck.emptyDeck();
         round++;
         Random random=new Random();
-        playerTurn= random.nextInt(2)+1;
+        //playerTurn= random.nextInt(2)+1;
+        playerTurn=0;
         for(int i=0;i<7;i++){
             players[0].drawCard(mainDeck.getCard(0));
             players[1].drawCard(mainDeck.getCard(0));
@@ -76,11 +77,10 @@ public class Game {
         players[0].getHand().sort();
         players[0].getHand().display();
         players[1].getHand().display();
+
         mainDeck.setImage(Card.BACK_IMAGE);
         mainDeck.moveCardToDeck(mainDeck.getCard(0),secondDeck,0);
         secondDeck.setImage(secondDeck.getCard(0).FRONT_IMAGE);
-        mainDeck.display();
-        secondDeck.display();
         running=true;
         if(playerTurn==1) players[1].playCard(null);
     }
@@ -161,5 +161,11 @@ public class Game {
 
     public void setPlayerTurn(int playerTurn) {
         this.playerTurn = playerTurn;
+    }
+    public void displayColorButtons(){
+        Button [] b=getController().getColorButtons();
+        for(int i=0;i<b.length;i++){
+            b[i].setVisible(true);
+        }
     }
 }

@@ -21,7 +21,7 @@
             <Font name="Algerian" size="18.0" />
          </font></Text>
       <Button fx:id="btnTakeCard" layoutX="441.0" layoutY="330.0" mnemonicParsing="false" onAction="#drawFromMainDeck" text="TAKE" visible="false" />
-      <Button fx:id="btnStart" layoutX="14.0" layoutY="370.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="208.0" text="START" />
+      <Button fx:id="btnStart" layoutX="14.0" layoutY="370.0" mnemonicParsing="false" onAction="#start" prefHeight="38.0" prefWidth="208.0" text="START" />
       <TextField fx:id="editTxtFinishingPoints" alignment="CENTER" layoutX="14.0" layoutY="336.0" prefHeight="26.0" prefWidth="208.0" text="70" />
       <Text layoutX="14.0" layoutY="325.0" strokeType="OUTSIDE" strokeWidth="0.0" text="To how many points we play?">
          <font>

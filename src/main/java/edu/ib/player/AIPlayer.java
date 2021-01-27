@@ -14,7 +14,6 @@ public class AIPlayer extends Player {
     @Override
     public void drawCard(Card card) {
         super.drawCard(card);
-        //card.setDisplayedImage(card.BACK_IMAGE);
         //card.setDisplayedImage(Card.BACK_IMAGE);
         card.setDisplayedImage(card.FRONT_IMAGE);
 
@@ -42,7 +41,11 @@ public class AIPlayer extends Player {
                 }
             } else if (handCard.getRank().equals(rank) || handCard.getSuit().equals(suit)) { //w przeciwnym wypadku
                 list.add(handCard);
-                playValue.add(100 / hand.getNumberOfRankCards(rank) + 5 * hand.getNumberOfRankSuit(handCard.getSuit()));
+                try {
+                    playValue.add(100 / hand.getNumberOfRankCards(rank) + 5 * hand.getNumberOfRankSuit(handCard.getSuit()));
+                } catch(ArithmeticException e){
+                    playValue.add(100+5*hand.getNumberOfRankSuit(handCard.getSuit()));
+                }
             }
         }
         //brak prawidłowej karty
@@ -55,6 +58,7 @@ public class AIPlayer extends Player {
                     hand.moveCardToDeck(getHand().getCard(hand.size() - 1), game.getSecondDeck(), 0);
                 }
             }
+            game.setPlayerTurn(0);
         } else { //brak kart do zagrania
             int maxValue = 0;
             int card = 0;
@@ -65,6 +69,7 @@ public class AIPlayer extends Player {
                 }
             }
             hand.moveCardToDeck(hand.getCard(card), game.getSecondDeck(), 0);
+            hand.display();
         }
     }
 }

@@ -2,6 +2,7 @@ package edu.ib.player;
 
 import edu.ib.Card;
 import edu.ib.Game;
+import javafx.scene.layout.AnchorPane;
 
 public class HumanPlayer extends Player {
 
@@ -21,11 +22,14 @@ public class HumanPlayer extends Player {
         Card.Suit suit = card.getSuit();
         if (rank.equals(Card.Rank.Eight)) { //jezeli 8
                 hand.moveCardToDeck(card, game.getSecondDeck(), 0);
-                game.setPlayerTurn(1);
+                card.setVisible(false);
+                hand.display();
                 if (hand.isEmpty()) {
                     game.setRunning(false);
+                    game.finishRound(this);
                 }
-                game.getPlayers()[1].playCard(null);
+                game.displayColorButtons();
+                game.getSecondDeck().setImage(card.FRONT_IMAGE);
         } else if (game.getCardColor().equals(Game.CardColor.Normal)) { //jezeli normalny tryb
 
             Card.Rank secondTopRank = game.getSecondDeck().getCard(0).getRank();
@@ -33,20 +37,29 @@ public class HumanPlayer extends Player {
 
             if (rank.equals(secondTopRank) || suit.equals(secondTopSuit)) {
                 hand.moveCardToDeck(card, game.getSecondDeck(), 0);
-                game.setPlayerTurn(1);
+                card.setVisible(false);
+                hand.display();
+
                 if (hand.isEmpty()) {
                     game.setRunning(false);
+                    game.finishRound(this);
                 }
+                game.setPlayerTurn(1);
                 game.getPlayers()[1].playCard(null);
+                game.getSecondDeck().setImage(card.FRONT_IMAGE);
             }
         } else if(suit.toString().equals(game.getCardColor().toString())) { //jezeli po wyborze koloru
             hand.moveCardToDeck(card,game.getSecondDeck(),0);
-            game.setPlayerTurn(1);
+            hand.display();
+            card.setVisible(false);
             if (hand.isEmpty()) {
                 game.setRunning(false);
                 game.finishRound(this);
             }
+
+            game.setPlayerTurn(1);
             game.getPlayers()[1].playCard(null);
+            game.getSecondDeck().setImage(card.FRONT_IMAGE);
         }
 
     }
