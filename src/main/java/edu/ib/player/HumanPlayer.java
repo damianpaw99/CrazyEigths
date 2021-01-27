@@ -42,13 +42,10 @@ public class HumanPlayer extends Player {
             hand.moveCardToDeck(card, game.getSecondDeck(), 0);
             card.setVisible(false);
             hand.display();
-            if (hand.isEmpty()) {
-                game.setRunning(false);
-                game.finishRound(this);
-            }
+
             game.getSecondDeck().setImage(card.FRONT_IMAGE);
             game.displayColorButtons();
-
+            game.getController().getImageSuit().setVisible(false);
         } else if (game.getCardColor().equals(Game.CardColor.Normal)) { //jezeli normalny tryb
 
             Card.Rank secondTopRank = game.getSecondDeck().getCard(0).getRank();
@@ -59,29 +56,29 @@ public class HumanPlayer extends Player {
                 card.setVisible(false);
                 hand.display();
 
-                if (hand.isEmpty()) {
-                    game.setRunning(false);
-                    game.finishRound(this);
-                }
+                game.setCardColor(Game.CardColor.Normal);
                 game.setPlayerTurn(1);
                 game.getSecondDeck().setImage(card.FRONT_IMAGE);
+                game.getController().getImageSuit().setVisible(false);
                 game.getPlayers()[1].playCard(null);
 
             }
         } else if (suit.toString().equals(game.getCardColor().toString())) { //jezeli po wyborze koloru
             hand.moveCardToDeck(card, game.getSecondDeck(), 0);
+            game.setCardColor(Game.CardColor.Normal);
+            game.getController().getImageSuit().setVisible(false);
             hand.display();
             card.setVisible(false);
-            if (hand.isEmpty()) {
-                game.setRunning(false);
-                game.finishRound(this);
-            }
 
+            game.getSecondDeck().setImage(card.FRONT_IMAGE);
             game.setPlayerTurn(1);
             game.getPlayers()[1].playCard(null);
-            game.getSecondDeck().setImage(card.FRONT_IMAGE);
-            game.setCardColor(Game.CardColor.Normal);
         }
 
+        //sprawdzenie wygranej rundy
+        if (hand.isEmpty()) {
+            game.setRunning(false);
+            game.finishRound(this);
+        }
     }
 }

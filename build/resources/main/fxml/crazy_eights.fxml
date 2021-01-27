@@ -9,11 +9,11 @@
 
 <AnchorPane fx:id="canvas" prefHeight="700.0" prefWidth="1000.0" style="-fx-background-color: #357835;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ib.Controller">
    <children>
-      <Text fx:id="txtComputerScore" layoutX="824.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="computer's score">
+      <Text fx:id="txtComputerScore" layoutX="781.0" layoutY="318.0" strokeType="OUTSIDE" strokeWidth="0.0" text="computer's score">
          <font>
             <Font name="Algerian" size="18.0" />
          </font></Text>
-      <Text fx:id="txtPlayerScore" layoutX="834.0" layoutY="681.0" strokeType="OUTSIDE" strokeWidth="0.0" text="player's score">
+      <Text fx:id="txtPlayerScore" layoutX="802.0" layoutY="395.0" strokeType="OUTSIDE" strokeWidth="0.0" text="player's score">
          <font>
             <Font name="Algerian" size="18.0" />
          </font></Text>
@@ -29,7 +29,7 @@
             <Font name="Algerian" size="14.0" />
          </font>
       </Text>
-      <ImageView fx:id="imageSuit" fitHeight="50.0" fitWidth="50.0" layoutX="918.0" layoutY="364.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="imageSuit" fitHeight="50.0" fitWidth="50.0" layoutX="667.0" layoutY="325.0" pickOnBounds="true" preserveRatio="true" />
       <Button fx:id="newRoundButton" layoutX="14.0" layoutY="414.0" mnemonicParsing="false" onAction="#newRound" prefHeight="38.0" prefWidth="245.0" text="NEW ROUND" visible="false" />
    </children>
 </AnchorPane>

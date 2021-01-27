@@ -2,6 +2,7 @@ package edu.ib.player;
 
 import edu.ib.Card;
 import edu.ib.Game;
+import javafx.scene.image.Image;
 
 import java.util.ArrayList;
 
@@ -28,8 +29,8 @@ public class AIPlayer extends Player {
     @Override
     public void drawCard(Card card) {
         super.drawCard(card);
-        //card.setDisplayedImage(Card.BACK_IMAGE);
-        hand.getCard(hand.size() - 1).setDisplayedImage(hand.getCard(hand.size() - 1).FRONT_IMAGE);
+        card.setDisplayedImage(Card.BACK_IMAGE);
+        //hand.getCard(hand.size() - 1).setDisplayedImage(hand.getCard(hand.size() - 1).FRONT_IMAGE);
     }
 
     /**
@@ -46,9 +47,14 @@ public class AIPlayer extends Player {
 
         Card.Rank rank = topSecondDeck.getRank();
         Card.Suit suit = topSecondDeck.getSuit();
+
         //szukanie prawidłowej karty i określenie jej wartości
         for (int i = 0; i < getHand().size(); i++) {
             Card handCard = hand.getCard(i);
+
+            boolean case1=(handCard.getRank().equals(rank) || handCard.getSuit().equals(suit)) && game.getCardColor().equals(Game.CardColor.Normal);
+            boolean case2=handCard.getSuit().toString().equals(game.getCardColor().toString());
+
             if (handCard.getRank().equals(Card.Rank.Eight)) { //jezeli 8
                 list.add(getHand().getCard(i));
                 if (getHand().size() == 2) {
@@ -56,15 +62,15 @@ public class AIPlayer extends Player {
                 } else {
                     playValue.add(0);
                 }
-            } else if (((handCard.getRank().equals(rank) || handCard.getSuit().equals(suit))
-                    && game.getCardColor().equals(Game.CardColor.Normal)) || handCard.getSuit().toString().equals(game.getCardColor().toString())) { //w przeciwnym wypadku
+
+            } else if (case1||case2) { //w przeciwnym wypadku
                 list.add(handCard);
                 try {
                     playValue.add(100 / hand.getNumberOfRankCards(rank) + 5 * hand.getNumberOfRankSuit(handCard.getSuit()));
                 } catch (ArithmeticException e) {
                     playValue.add(100 + 5 * hand.getNumberOfRankSuit(handCard.getSuit()));
                 }
-                game.setCardColor(Game.CardColor.Normal);
+
             }
         }
         //brak prawidłowej karty
@@ -73,18 +79,29 @@ public class AIPlayer extends Player {
             while (!played) {
                 try {
                     drawCard(game.getMainDeck().getCard(0));
-                } catch (NullPointerException e) {
+                } catch (IndexOutOfBoundsException e) {
                     game.restockMainDeck();
                     drawCard(game.getMainDeck().getCard(0));
                 }
-                if (hand.getCard(hand.size() - 1).getRank().equals(rank) || hand.getCard(hand.size() - 1).getSuit().equals(suit)) {
+
+                Card drawCard = hand.getCard(hand.size()-1);
+
+                boolean case1=(drawCard.getRank().equals(rank) || drawCard.getSuit().equals(suit)) && game.getCardColor().equals(Game.CardColor.Normal);
+                boolean case2=(game.getCardColor().toString().equals(hand.getCard(hand.size() - 1).getSuit().toString()));
+
+                if (drawCard.getRank().equals(Card.Rank.Eight)) { //jeżeli ósemka
+                    playEight(drawCard);
+                    played=true;
+                    hand.display();
+                } else if (case1||case2){ //jeśli nie ósemka
                     played = true;
+                    game.setCardColor(Game.CardColor.Normal);
                     game.getSecondDeck().setImage(getHand().getCard(hand.size() - 1).FRONT_IMAGE);
                     hand.moveCardToDeck(getHand().getCard(hand.size() - 1), game.getSecondDeck(), 0);
                     hand.display();
                 }
             }
-        } else {
+        } else { //lista nie pusta
             int maxValue = playValue.get(0);
             Card card = list.get(0);
             for (int i = 1; i < playValue.size(); i++) {
@@ -93,27 +110,41 @@ public class AIPlayer extends Player {
                     card = list.get(i);
                 }
             }
-            hand.moveCardToDeck(card, game.getSecondDeck(), 0);
-            card.setVisible(false);
-            game.getSecondDeck().setImage(card.FRONT_IMAGE);
-            hand.display();
-            if (card.getRank().equals(Card.Rank.Eight)) {
-                Card.Suit[] suits = Card.Suit.values();
-                Card.Suit cardColor = Card.Suit.Hearts;
-                int maxNumber = 0;
-                for (Card.Suit value : suits) {
-                    if (hand.getNumberOfRankSuit(value) > maxNumber) {
-                        maxNumber = hand.getNumberOfRankSuit(value);
-                        cardColor = value;
-                    }
-                }
-                game.setCardColor(Game.CardColor.valueOf(cardColor.toString()));
+            if (card.getRank().equals(Card.Rank.Eight)) { //jeżeli zagrana ósemka
+                playEight(card);
+            } else {
+                hand.moveCardToDeck(card, game.getSecondDeck(), 0);
+                card.setVisible(false);
+                game.getSecondDeck().setImage(card.FRONT_IMAGE);
+                game.setCardColor(Game.CardColor.Normal);
             }
+            hand.display();
         }
+
         if (hand.isEmpty()) {
             game.finishRound(this);
         } else {
             game.setPlayerTurn(0);
+
         }
+    }
+
+    private void playEight(Card card){
+        Card.Suit[] suits = Card.Suit.values();
+        Card.Suit cardColor = Card.Suit.Hearts;
+        int maxNumber = 0;
+        for (int i = 0; i < suits.length; i++) {
+            Card.Suit value = suits[i];
+            if (hand.getNumberOfRankSuit(value) > maxNumber) {
+                maxNumber = hand.getNumberOfRankSuit(value);
+                cardColor = value;
+            }
+        }
+        hand.moveCardToDeck(card,game.getSecondDeck(),0);
+        card.setVisible(false);
+        game.getSecondDeck().setImage(card.FRONT_IMAGE);
+        game.setCardColor(Game.CardColor.valueOf(cardColor.toString()));
+        game.getController().getImageSuit().setVisible(true);
+        game.getController().getImageSuit().setImage(new Image("/graphics/"+game.getCardColor().toString()+".png"));
     }
 }

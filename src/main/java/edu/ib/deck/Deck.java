@@ -188,6 +188,14 @@ public class Deck extends ImageView {
     }
 
     /**
+     * Method checking if card is in deck
+     * @param card Card
+     * @return Logical value
+     */
+    public boolean haveCard(Card card){
+        return listOfCards.contains(card);
+    }
+    /**
      * @param card chosen to find its index
      * @return index of given Card in the Deck
      */

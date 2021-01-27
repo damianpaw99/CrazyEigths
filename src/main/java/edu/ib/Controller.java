@@ -54,53 +54,7 @@ public class Controller {
     @FXML
     private TextField editTxtFinishingPoints;
 
-    public Game getGame() {
-        return game;
-    }
 
-    public Button[] getCardsButtons() {
-        return cardsButtons;
-    }
-
-    public ResourceBundle getResources() {
-        return resources;
-    }
-
-    public URL getLocation() {
-        return location;
-    }
-
-    public AnchorPane getCanvas() {
-        return canvas;
-    }
-
-    public Text getTxtComputerScore() {
-        return txtComputerScore;
-    }
-
-    public Text getTxtPlayerScore() {
-        return txtPlayerScore;
-    }
-
-    public Text getTxtRound() {
-        return txtRound;
-    }
-
-    public Button getBtnDrawCard() {
-        return btnDrawCard;
-    }
-
-    public Button getBtnStart() {
-        return btnStart;
-    }
-
-    public TextField getEditTxtFinishingPoints() {
-        return editTxtFinishingPoints;
-    }
-
-    public Button getNewRoundButton() {
-        return newRoundButton;
-    }
 
     @FXML
     private Text txtPointsEndGame;
@@ -122,7 +76,7 @@ public class Controller {
         if (game.isRunning() && game.getPlayerTurn() == 0) {
             try {
                 game.getPlayers()[0].drawCard(game.getMainDeck().getCard(0));
-            } catch (NullPointerException e) {
+            } catch (IndexOutOfBoundsException e) {
                 e.getStackTrace();
                 game.restockMainDeck();
                 game.getPlayers()[0].drawCard(game.getMainDeck().getCard(0));
@@ -132,9 +86,22 @@ public class Controller {
         }
     }
 
+    public void setComputerScore(int points){
+        txtComputerScore.setText("Computer's score: "+points);
+    }
+    public void setPlayerScore(int points){
+        txtPlayerScore.setText("Player's score: "+points);
+    }
+    public void setRounds(int number){
+        txtRound.setText("Round: "+number);
+    }
+
     @FXML
     void start(ActionEvent event) {
         startNewGame();
+        txtComputerScore.setText("Computer's score: 0");
+        txtPlayerScore.setText("Player's score: 0");
+        txtRound.setText("Round: 1");
     }
 
     public Text getTxtPointsEndGame() {
@@ -232,6 +199,53 @@ public class Controller {
         for (Button colorButton : colorButtons) {
             colorButton.setVisible(true);
         }
+    }
+    public Game getGame() {
+        return game;
+    }
+
+    public Button[] getCardsButtons() {
+        return cardsButtons;
+    }
+
+    public ResourceBundle getResources() {
+        return resources;
+    }
+
+    public URL getLocation() {
+        return location;
+    }
+
+    public AnchorPane getCanvas() {
+        return canvas;
+    }
+
+    public Text getTxtComputerScore() {
+        return txtComputerScore;
+    }
+
+    public Text getTxtPlayerScore() {
+        return txtPlayerScore;
+    }
+
+    public Text getTxtRound() {
+        return txtRound;
+    }
+
+    public Button getBtnDrawCard() {
+        return btnDrawCard;
+    }
+
+    public Button getBtnStart() {
+        return btnStart;
+    }
+
+    public TextField getEditTxtFinishingPoints() {
+        return editTxtFinishingPoints;
+    }
+
+    public Button getNewRoundButton() {
+        return newRoundButton;
     }
 
     @FXML

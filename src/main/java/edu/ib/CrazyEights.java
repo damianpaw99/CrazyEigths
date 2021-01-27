@@ -28,6 +28,7 @@ public class CrazyEights extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/crazy_eights.fxml"));
         Scene scene = new Scene(root, 1000, 700);
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
     }
 }

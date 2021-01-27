@@ -91,7 +91,7 @@ public class Card extends Button implements Comparable<Card> {
         setMaxSize(64, 87);
 
         setOnAction(event -> {
-            if (getDeck().getGame().getPlayerTurn() == 0) {
+            if (getDeck().getGame().getPlayerTurn() == 0 && getDeck().getGame().getPlayers()[0].getHand().haveCard(this)) {
                 getDeck().getGame().getPlayers()[getDeck().getGame().getPlayerTurn()].playCard(this);
             }
         });

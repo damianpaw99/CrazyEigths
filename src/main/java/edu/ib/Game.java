@@ -26,9 +26,9 @@ public class Game {
 
     public enum CardColor {
         Hearts,
-        Clubs,
-        Diamonds,
         Spades,
+        Diamonds,
+        Clubs,
         Normal
     }
 
@@ -189,8 +189,8 @@ public class Game {
         mainDeck.randomize();
         round++;
         Random random = new Random();
-        //playerTurn= random.nextInt(2)+1;
-        playerTurn = 0;
+        playerTurn= random.nextInt(2);
+        //playerTurn = 0;
         for (int i = 0; i < 7; i++) {
             players[0].drawCard(mainDeck.getCard(0));
             players[1].drawCard(mainDeck.getCard(0));
@@ -204,6 +204,8 @@ public class Game {
         secondDeck.setImage(secondDeck.getCard(0).FRONT_IMAGE);
         running = true;
         if (playerTurn == 1) players[1].playCard(null);
+        controller.getBtnDrawCard().setVisible(true);
+        controller.setRounds(round);
     }
 
     /**
@@ -211,17 +213,19 @@ public class Game {
      */
     public void restockMainDeck() {
         for (int i = 1; i < secondDeck.size(); i++) {
-            secondDeck.moveCardToDeck(secondDeck.getCard(i), mainDeck);
+            secondDeck.moveCardToDeck(secondDeck.getCard(1), mainDeck);
         }
         mainDeck.randomize();
     }
 
     /**
-     * Method to finsih the rounc
+     * Method to finish the round
      *
      * @param player Player who made the last move in the round
      */
     public void finishRound(Player player) {
+        cardColor=CardColor.Normal;
+        controller.getImageSuit().setVisible(false);
         Player pl;
         Player pw;
         if (players[0].equals(player)) {
@@ -231,31 +235,40 @@ public class Game {
             pw = players[1];
             pl = players[0];
         }
-        int p = 0;
         for (int i = 0; i < pl.getHand().size(); i++) {
-            player.addPoints(pl.getHand().getCard(i).getPointsValue());
+            pw.addPoints(pl.getHand().getCard(i).getPointsValue());
         }
+        controller.setComputerScore(players[1].getPoints());
+        controller.setPlayerScore(players[0].getPoints());
         if (pw.getPoints() > valueToEnd) {
             finishGame();
+        } else {
+            controller.getBtnDrawCard().setVisible(false);
+            controller.getNewRoundButton().setVisible(true);
         }
         mainDeck.emptyDeck();
-        controller.getNewRoundButton().setVisible(true);
+        secondDeck.emptyDeck();
+        players[0].getHand().emptyDeck();
+        players[0].getHand().display();
+        players[1].getHand().emptyDeck();
+        players[1].getHand().display();
+
     }
 
     /**
      * Method to finish the Game
      */
     public void finishGame() {
-
+        controller.getBtnStart().setVisible(true);
+        controller.getEditTxtFinishingPoints().setVisible(true);
+        controller.getTxtPointsEndGame().setVisible(true);
+        controller.getNewRoundButton().setVisible(false);
     }
 
     /**
      * Method to display the Buttons with Colours
      */
     public void displayColorButtons() {
-        Button[] b = getController().getColorButtons();
-        for (int i = 0; i < b.length; i++) {
-            b[i].setVisible(true);
-        }
+        controller.showColorButtons();
     }
 }
