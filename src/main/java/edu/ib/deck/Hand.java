@@ -41,8 +41,8 @@ public class Hand extends Deck {
     }
     public int getNumberOfRankCards(Card.Rank rank){
         int count=0;
-        for(int i=0;i<listOfCards.size();i++){
-            if(listOfCards.get(i).getRank().equals(rank)){
+        for (Card listOfCard : listOfCards) {
+            if (listOfCard.getRank().equals(rank)) {
                 count++;
             }
         }
@@ -50,11 +50,12 @@ public class Hand extends Deck {
     }
     public int getNumberOfRankSuit(Card.Suit suit){
         int count=0;
-        for(int i=0;i<listOfCards.size();i++){
-            if(listOfCards.get(i).getSuit().equals(suit)){
+        for (Card listOfCard : listOfCards) {
+            if (listOfCard.getSuit().equals(suit)) {
                 count++;
             }
         }
         return count;
     }
+
 }

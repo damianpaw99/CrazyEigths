@@ -25,9 +25,6 @@ public abstract class Player {
     public abstract void playCard(Card card);
 
     public void drawCard(Card card){
-        if(card.getDeck().size()==1){
-            game.restockMainDeck();
-        }
         hand.moveCardToDeck(card, hand);
     }
     public void addPoints(int points){

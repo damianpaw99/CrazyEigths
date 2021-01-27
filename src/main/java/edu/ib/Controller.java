@@ -1,5 +1,6 @@
 package edu.ib;
 
+import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -94,6 +95,10 @@ public class Controller {
         return editTxtFinishingPoints;
     }
 
+    public Button getNewRoundButton() {
+        return newRoundButton;
+    }
+
     @FXML
     private Text txtPointsEndGame;
 
@@ -101,9 +106,23 @@ public class Controller {
     private ImageView imageSuit;
 
     @FXML
+    private Button newRoundButton;
+
+    @FXML
+    void newRound(ActionEvent event) {
+        game.newRound();
+        newRoundButton.setVisible(false);
+    }
+    @FXML
     void drawFromMainDeck(ActionEvent event) {
         if (game.isRunning() && game.getPlayerTurn() == 0) {
-            game.getMainDeck().moveCardToDeck(game.getMainDeck().getCard(0), game.getPlayers()[0].getHand());
+            try {
+                game.getPlayers()[0].drawCard(game.getMainDeck().getCard(0));
+            } catch(NullPointerException e){
+                e.getStackTrace();
+                game.restockMainDeck();
+                game.getPlayers()[0].drawCard(game.getMainDeck().getCard(0));
+            }
             game.getPlayers()[0].getHand().sort();
             game.getPlayers()[0].getHand().display();
         }
@@ -114,14 +133,19 @@ public class Controller {
         startNewGame();
     }
 
+    public Text getTxtPointsEndGame() {
+        return txtPointsEndGame;
+    }
+
+    public ImageView getImageSuit() {
+        return imageSuit;
+    }
+
     private void startNewGame() {
         try {
             game = new Game(this, Integer.parseInt(editTxtFinishingPoints.getText()));
 
-            for (int i = 0; i < cardsButtons.length; i++) {
-                cardsButtons[i] = game.getMainDeck().getCard(i);
-                canvas.getChildren().add(cardsButtons[i]);
-            }
+
             game.newRound();
 
             canvas.getChildren().add(game.getMainDeck());
@@ -139,7 +163,7 @@ public class Controller {
             btnDrawCard.setLayoutY(550);
 
             btnStart.setVisible(false);
-
+            txtPointsEndGame.setVisible(false);
             editTxtFinishingPoints.setVisible(false);
 
             //jeszcze schować trzeba text
@@ -149,16 +173,20 @@ public class Controller {
             for (int i = 0; i < colorButtons.length; i++) {
                 Card.Suit[] suit = Card.Suit.values();
                 Button button = new Button();
-                button.setLayoutY(200);
-                button.setLayoutX(300 + 35 * i);
+                button.setLayoutY(400);
+                button.setLayoutX(400 + 50 * i);
 
-                button.setMaxHeight(30);
-                button.setMaxHeight(30);
-                button.setMinWidth(30);
-                button.setMinWidth(30);
+                button.setMaxHeight(50);
+                button.setMaxHeight(50);
+                button.setMinWidth(50);
+                button.setMinHeight(50);
                 button.setVisible(false);
-                //button.setBackground(new Background(new BackgroundImage(new Image("/graphics/"+suit[i].toString()),null,null,null,null)));
-                button.setBackground(new Background(new BackgroundImage(new Image("/graphics/blank.png"), null, null, null, null)));
+                try {
+                    button.setBackground(new Background(new BackgroundImage(new Image("/graphics/" + suit[i].toString()+".png"), null, null, null, null)));
+                } catch(Exception e) {
+                    e.getStackTrace();
+                    button.setBackground(new Background(new BackgroundImage(new Image("/graphics/blank.png"), null, null, null, null)));
+                }
                 button.setId(suit[i].toString());
 
                 button.setOnAction((event) -> {
@@ -199,11 +227,12 @@ public class Controller {
         assert txtComputerScore != null : "fx:id=\"txtComputerScore\" was not injected: check your FXML file 'crazy_eights.fxml'.";
         assert txtPlayerScore != null : "fx:id=\"txtPlayerScore\" was not injected: check your FXML file 'crazy_eights.fxml'.";
         assert txtRound != null : "fx:id=\"txtRound\" was not injected: check your FXML file 'crazy_eights.fxml'.";
-        assert btnDrawCard != null : "fx:id=\"btnTakeCard\" was not injected: check your FXML file 'crazy_eights.fxml'.";
+        assert btnDrawCard != null : "fx:id=\"btnDrawCard\" was not injected: check your FXML file 'crazy_eights.fxml'.";
         assert btnStart != null : "fx:id=\"btnStart\" was not injected: check your FXML file 'crazy_eights.fxml'.";
         assert editTxtFinishingPoints != null : "fx:id=\"editTxtFinishingPoints\" was not injected: check your FXML file 'crazy_eights.fxml'.";
         assert txtPointsEndGame != null : "fx:id=\"txtPointsEndGame\" was not injected: check your FXML file 'crazy_eights.fxml'.";
         assert imageSuit != null : "fx:id=\"imageSuit\" was not injected: check your FXML file 'crazy_eights.fxml'.";
+        assert newRoundButton != null : "fx:id=\"newRoundButton\" was not injected: check your FXML file 'crazy_eights.fxml'.";
     }
 
 }

@@ -34,13 +34,17 @@ public class Deck extends ImageView {
     public void createFullDeck(){
         Card.Rank[] ranks = Card.Rank.values();
         Card.Suit[] suits = Card.Suit.values();
-        for (Card.Suit suit : suits) {
-            for (Card.Rank rank : ranks) {
-                listOfCards.add(new Card(this, rank, suit));
+        for (int i=0;i< suits.length;i++) {
+            for (int j=0;j< ranks.length;j++) {
+                listOfCards.add(new Card(this, ranks[j], suits[i]));
+                game.getController().getCanvas().getChildren().add(listOfCards.get(listOfCards.size()-1));
             }
         }
     }
     public void emptyDeck(){
+        for(int i=0;i<listOfCards.size();i++){
+            game.getController().getCanvas().getChildren().remove(listOfCards.get(i));
+        }
         listOfCards.clear();
     }
 
@@ -128,7 +132,7 @@ public class Deck extends ImageView {
         deck.addCard(card);
     }
     public void moveCardToDeck(Card card,Deck deck,int index){
-        listOfCards.remove(card);
+        card.getDeck().removeCard(card);
         card.setDeck(deck);
         deck.addCard(index, card);
     }

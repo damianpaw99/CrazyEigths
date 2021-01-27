@@ -52,7 +52,7 @@ public class Game {
         this.valueToEnd=valueToEnd;
         this.controller=controller;
         mainDeck=new Deck(this);
-        mainDeck.createFullDeck();
+        //mainDeck.createFullDeck();
 
         secondDeck=new Deck(this);
         mainDeck.setImage(new Image("/graphics/back.png"));
@@ -64,8 +64,12 @@ public class Game {
      * Method creating new round
      */
     public void newRound(){
-        mainDeck.randomize();
         secondDeck.emptyDeck();
+        mainDeck.emptyDeck();
+        players[0].getHand().emptyDeck();
+        players[1].getHand().emptyDeck();
+        mainDeck.createFullDeck();
+        mainDeck.randomize();
         round++;
         Random random=new Random();
         //playerTurn= random.nextInt(2)+1;
@@ -118,6 +122,8 @@ public class Game {
         if(pw.getPoints()>valueToEnd){
             finishGame();
         }
+        mainDeck.emptyDeck();
+        controller.getNewRoundButton().setVisible(true);
     }
     public void finishGame(){
 
