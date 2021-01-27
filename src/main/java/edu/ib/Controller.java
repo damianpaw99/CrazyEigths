@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
@@ -41,7 +42,7 @@ public class Controller {
     private Text txtRound;
 
     @FXML
-    private Button btnTakeCard;
+    private Button btnDrawCard;
 
     @FXML
     private Button btnStart;
@@ -81,8 +82,8 @@ public class Controller {
         return txtRound;
     }
 
-    public Button getBtnTakeCard() {
-        return btnTakeCard;
+    public Button getBtnDrawCard() {
+        return btnDrawCard;
     }
 
     public Button getBtnStart() {
@@ -92,6 +93,12 @@ public class Controller {
     public TextField getEditTxtFinishingPoints() {
         return editTxtFinishingPoints;
     }
+
+    @FXML
+    private Text txtPointsEndGame;
+
+    @FXML
+    private ImageView imageSuit;
 
     @FXML
     void drawFromMainDeck(ActionEvent event) {
@@ -128,8 +135,8 @@ public class Controller {
             game.getMainDeck().setVisibility(true);
             game.getSecondDeck().setVisibility(true);
 
-            btnTakeCard.setVisible(true);
-            btnTakeCard.setLayoutY(550);
+            btnDrawCard.setVisible(true);
+            btnDrawCard.setLayoutY(550);
 
             btnStart.setVisible(false);
 
@@ -192,9 +199,11 @@ public class Controller {
         assert txtComputerScore != null : "fx:id=\"txtComputerScore\" was not injected: check your FXML file 'crazy_eights.fxml'.";
         assert txtPlayerScore != null : "fx:id=\"txtPlayerScore\" was not injected: check your FXML file 'crazy_eights.fxml'.";
         assert txtRound != null : "fx:id=\"txtRound\" was not injected: check your FXML file 'crazy_eights.fxml'.";
-        assert btnTakeCard != null : "fx:id=\"btnTakeCard\" was not injected: check your FXML file 'crazy_eights.fxml'.";
+        assert btnDrawCard != null : "fx:id=\"btnTakeCard\" was not injected: check your FXML file 'crazy_eights.fxml'.";
         assert btnStart != null : "fx:id=\"btnStart\" was not injected: check your FXML file 'crazy_eights.fxml'.";
         assert editTxtFinishingPoints != null : "fx:id=\"editTxtFinishingPoints\" was not injected: check your FXML file 'crazy_eights.fxml'.";
+        assert txtPointsEndGame != null : "fx:id=\"txtPointsEndGame\" was not injected: check your FXML file 'crazy_eights.fxml'.";
+        assert imageSuit != null : "fx:id=\"imageSuit\" was not injected: check your FXML file 'crazy_eights.fxml'.";
     }
 
 }
