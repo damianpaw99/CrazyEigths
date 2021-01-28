@@ -31,8 +31,8 @@ public class Hand extends Deck {
      * Method to sort Cards in the Hand
      */
     public void display() {
-        int xLeft = 180;
-        int xRight = 820;
+        int xLeft = 130;
+        int xRight = 870;
         double step = (xRight - xLeft) / (double) listOfCards.size();
         if (game.getPlayers()[0].getHand().equals(this)) {
             int h = 610;
@@ -73,7 +73,7 @@ public class Hand extends Deck {
      * @param suit Suit that is counted
      * @return number of Cards with given Rank as int
      */
-    public int getNumberOfRankSuit(Card.Suit suit) {
+    public int getNumberOfSuitCards(Card.Suit suit) {
         int count = 0;
         for (Card listOfCard : listOfCards) {
             if (listOfCard.getSuit().equals(suit)) {

@@ -66,9 +66,9 @@ public class AIPlayer extends Player {
             } else if (case1||case2) { //w przeciwnym wypadku
                 list.add(handCard);
                 try {
-                    playValue.add(100 / (hand.size()-hand.getNumberOfRankCards(rank)) + 5 * hand.getNumberOfRankSuit(handCard.getSuit()));
+                    playValue.add(100 / (hand.size()-hand.getNumberOfRankCards(rank)) + 5 * hand.getNumberOfSuitCards(handCard.getSuit()));
                 } catch (ArithmeticException e) {
-                    playValue.add(100 + 5 * hand.getNumberOfRankSuit(handCard.getSuit()));
+                    playValue.add(100 + 5 * hand.getNumberOfSuitCards(handCard.getSuit()));
                 }
 
             }
@@ -131,11 +131,11 @@ public class AIPlayer extends Player {
     private void playEight(Card card){
         Card.Suit[] suits = Card.Suit.values();
         Card.Suit cardColor = Card.Suit.Hearts;
-        int maxNumber = 0;
-        for (int i = 0; i < suits.length; i++) {
+        int maxNumber = hand.getNumberOfSuitCards(Card.Suit.Hearts);
+        for (int i = 1; i < suits.length; i++) {
             Card.Suit value = suits[i];
-            if (hand.getNumberOfRankSuit(value) > maxNumber) {
-                maxNumber = hand.getNumberOfRankSuit(value);
+            if (hand.getNumberOfSuitCards(value) > maxNumber) {
+                maxNumber = hand.getNumberOfSuitCards(value);
                 cardColor = value;
             }
         }

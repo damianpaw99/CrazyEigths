@@ -138,7 +138,7 @@ public class Game {
         players[0].getHand().display();
         players[1].getHand().emptyDeck();
         players[1].getHand().display();
-        if (pw.getPoints() > valueToEnd) {
+        if (pw.getPoints() >= valueToEnd) {
             finishGame();
         } else {
             controller.getBtnDrawCard().setVisible(false);
