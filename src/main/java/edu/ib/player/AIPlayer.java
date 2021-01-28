@@ -66,7 +66,7 @@ public class AIPlayer extends Player {
             } else if (case1||case2) { //w przeciwnym wypadku
                 list.add(handCard);
                 try {
-                    playValue.add(100 / hand.getNumberOfRankCards(rank) + 5 * hand.getNumberOfRankSuit(handCard.getSuit()));
+                    playValue.add(100 / (hand.size()-hand.getNumberOfRankCards(rank)) + 5 * hand.getNumberOfRankSuit(handCard.getSuit()));
                 } catch (ArithmeticException e) {
                     playValue.add(100 + 5 * hand.getNumberOfRankSuit(handCard.getSuit()));
                 }
