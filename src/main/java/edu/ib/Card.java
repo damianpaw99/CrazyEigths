@@ -11,6 +11,17 @@ import javafx.scene.layout.BackgroundImage;
  */
 public class Card extends Button implements Comparable<Card> {
 
+    private final Suit suit;
+    private final Rank rank;
+
+    /**
+     * Deck in which the Card is
+     */
+    private Deck deck;
+
+    public Image FRONT_IMAGE;
+    public static final Image BACK_IMAGE = new Image("/graphics/back.png");
+
     /**
      * Enum class of possible Ranks of Card and with point value of each Rank
      */
@@ -50,17 +61,6 @@ public class Card extends Button implements Comparable<Card> {
         Clubs //clover
     }
 
-    private final Suit suit;
-    private final Rank rank;
-
-    /**
-     * Deck in which the Card is
-     */
-    private Deck deck;
-
-    public Image FRONT_IMAGE;
-    public static final Image BACK_IMAGE = new Image("/graphics/back.png");
-
     /**
      * Card constructor
      *
@@ -95,6 +95,15 @@ public class Card extends Button implements Comparable<Card> {
                 getDeck().getGame().getPlayers()[getDeck().getGame().getPlayerTurn()].playCard(this);
             }
         });
+    }
+
+    /**
+     * Method finding position of Card in the Deck
+     *
+     * @return Card index in the Deck as int
+     */
+    public int findPlaceInDeck() {
+        return deck.getIndex(this);
     }
 
     /**
@@ -145,15 +154,6 @@ public class Card extends Button implements Comparable<Card> {
      */
     public int getPointsValue() {
         return rank.getPointsValue();
-    }
-
-    /**
-     * Method finding position of Card in the Deck
-     *
-     * @return Card index in the Deck as int
-     */
-    public int findPlaceInDeck() {
-        return deck.getIndex(this);
     }
 
     /**

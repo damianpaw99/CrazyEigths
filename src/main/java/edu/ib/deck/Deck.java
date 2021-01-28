@@ -68,28 +68,6 @@ public class Deck extends ImageView {
     }
 
     /**
-     * @param visibility new value of visibility of the Deck
-     */
-    public void setVisibility(boolean visibility) {
-        this.visibility = visibility;
-    }
-
-    /**
-     * @return the last Card in the Deck
-     */
-    public Card getLastCard() {
-        return listOfCards.get(listOfCards.size() - 1);
-    }
-
-    /**
-     * @param i index of the requested Card
-     * @return the Card with given index
-     */
-    public Card getCard(int i) {
-        return listOfCards.get(i);
-    }
-
-    /**
      * @return boolean value after checking if listOfCards is empty
      */
     public boolean isEmpty() {
@@ -208,5 +186,27 @@ public class Deck extends ImageView {
      */
     public Game getGame() {
         return game;
+    }
+
+    /**
+     * @param visibility new value of visibility of the Deck
+     */
+    public void setVisibility(boolean visibility) {
+        this.visibility = visibility;
+    }
+
+    /**
+     * @return the last Card in the Deck
+     */
+    public Card getLastCard() {
+        return listOfCards.get(listOfCards.size() - 1);
+    }
+
+    /**
+     * @param i index of the requested Card
+     * @return the Card with given index
+     */
+    public Card getCard(int i) {
+        return listOfCards.get(i);
     }
 }

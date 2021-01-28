@@ -4,7 +4,6 @@ import edu.ib.deck.Deck;
 import edu.ib.player.AIPlayer;
 import edu.ib.player.HumanPlayer;
 import edu.ib.player.Player;
-import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 
 import java.util.Random;
@@ -60,121 +59,12 @@ public class Game {
     }
 
     /**
-     * Method to set value of gameFinished
-     *
-     * @param gameFinished new value of gameFinished
-     */
-    public void setGameFinished(boolean gameFinished) {
-        this.gameFinished = gameFinished;
-    }
-
-    /**
-     * Method to get the CardColor
-     *
-     * @return CardColor
-     */
-    public CardColor getCardColor() {
-        return cardColor;
-    }
-
-    /**
-     * Method to set the CardColor
-     *
-     * @param cardColor new value of CardColor
-     */
-    public void setCardColor(CardColor cardColor) {
-        this.cardColor = cardColor;
-    }
-
-    /**
      * Method to check if the Game is running
      *
      * @return value of Running as boolean
      */
     public boolean isRunning() {
         return running;
-    }
-
-    /**
-     * Method to set Running of the Game
-     *
-     * @param running new value of Running of the Game
-     */
-    public void setRunning(boolean running) {
-        this.running = running;
-    }
-
-    /**
-     * Method to get the mainDeck of the Game
-     *
-     * @return mainDeck of the Game
-     */
-    public Deck getMainDeck() {
-        return mainDeck;
-    }
-
-    /**
-     * Method to get the secondDeck of the game
-     *
-     * @return second Deck of the Game
-     */
-    public Deck getSecondDeck() {
-        return secondDeck;
-    }
-
-    /**
-     * Method to get the ROund of the Game
-     *
-     * @return round of the Game as int
-     */
-    public int getRound() {
-        return round;
-    }
-
-    /**
-     * Method to set the Round of the Game
-     *
-     * @param round new value of the Round
-     */
-    public void setRound(int round) {
-        this.round = round;
-    }
-
-    /**
-     * Method to get Players taking part in the game
-     *
-     * @return Players taking part in the Game as Array of Players
-     */
-    public Player[] getPlayers() {
-        return players;
-    }
-
-    /**
-     * Method to get the playerTurn
-     *
-     * @return playerTurn as int
-     */
-    public int getPlayerTurn() {
-        return playerTurn;
-    }
-
-    /**
-     * Method to set the playerTurn
-     *
-     * @param playerTurn new playerTurn value
-     */
-    public void setPlayerTurn(int playerTurn) {
-        this.playerTurn = playerTurn;
-    }
-
-
-    /**
-     * Method to get the Controller of the Game
-     *
-     * @return Controller of the Game
-     */
-    public Controller getController() {
-        return controller;
     }
 
     /**
@@ -189,7 +79,7 @@ public class Game {
         mainDeck.randomize();
         round++;
         Random random = new Random();
-        playerTurn= random.nextInt(2);
+        playerTurn = random.nextInt(2);
         //playerTurn = 0;
         for (int i = 0; i < 7; i++) {
             players[0].drawCard(mainDeck.getCard(0));
@@ -224,7 +114,7 @@ public class Game {
      * @param player Player who made the last move in the round
      */
     public void finishRound(Player player) {
-        cardColor=CardColor.Normal;
+        cardColor = CardColor.Normal;
         controller.getImageSuit().setVisible(false);
         Player pl;
         Player pw;
@@ -270,5 +160,114 @@ public class Game {
      */
     public void displayColorButtons() {
         controller.showColorButtons();
+    }
+
+
+    /**
+     * Method to set value of gameFinished
+     *
+     * @param gameFinished new value of gameFinished
+     */
+    public void setGameFinished(boolean gameFinished) {
+        this.gameFinished = gameFinished;
+    }
+
+    /**
+     * Method to set the CardColor
+     *
+     * @param cardColor new value of CardColor
+     */
+    public void setCardColor(CardColor cardColor) {
+        this.cardColor = cardColor;
+    }
+
+    /**
+     * Method to set Running of the Game
+     *
+     * @param running new value of Running of the Game
+     */
+    public void setRunning(boolean running) {
+        this.running = running;
+    }
+
+    /**
+     * Method to set the Round of the Game
+     *
+     * @param round new value of the Round
+     */
+    public void setRound(int round) {
+        this.round = round;
+    }
+
+    /**
+     * Method to set the playerTurn
+     *
+     * @param playerTurn new playerTurn value
+     */
+    public void setPlayerTurn(int playerTurn) {
+        this.playerTurn = playerTurn;
+    }
+
+    /**
+     * Method to get the mainDeck of the Game
+     *
+     * @return mainDeck of the Game
+     */
+    public Deck getMainDeck() {
+        return mainDeck;
+    }
+
+    /**
+     * Method to get the secondDeck of the game
+     *
+     * @return second Deck of the Game
+     */
+    public Deck getSecondDeck() {
+        return secondDeck;
+    }
+
+    /**
+     * Method to get the ROund of the Game
+     *
+     * @return round of the Game as int
+     */
+    public int getRound() {
+        return round;
+    }
+
+    /**
+     * Method to get Players taking part in the game
+     *
+     * @return Players taking part in the Game as Array of Players
+     */
+    public Player[] getPlayers() {
+        return players;
+    }
+
+    /**
+     * Method to get the playerTurn
+     *
+     * @return playerTurn as int
+     */
+    public int getPlayerTurn() {
+        return playerTurn;
+    }
+
+    /**
+     * Method to get the Controller of the Game
+     *
+     * @return Controller of the Game
+     */
+    public Controller getController() {
+        return controller;
+    }
+
+    /**
+     * Method to get the CardColor
+     *
+     * @return CardColor
+     */
+    public CardColor getCardColor() {
+        return cardColor;
     }
 }

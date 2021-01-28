@@ -7,26 +7,26 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="canvas" prefHeight="700.0" prefWidth="1000.0" style="-fx-background-color: #357835;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ib.Controller">
+<AnchorPane fx:id="canvas" prefHeight="700.0" prefWidth="1000.0" style="-fx-background-color: #4a8fb7;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ib.Controller">
    <children>
-      <Text fx:id="txtComputerScore" layoutX="781.0" layoutY="318.0" strokeType="OUTSIDE" strokeWidth="0.0" text="computer's score">
+      <Text fx:id="txtComputerScore" fill="#0e2e71" layoutX="796.0" layoutY="324.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Computer's score:">
          <font>
-            <Font name="Algerian" size="18.0" />
+            <Font name="Rockwell" size="18.0" />
          </font></Text>
-      <Text fx:id="txtPlayerScore" layoutX="802.0" layoutY="395.0" strokeType="OUTSIDE" strokeWidth="0.0" text="player's score">
+      <Text fx:id="txtPlayerScore" fill="#0e2e71" layoutX="796.0" layoutY="387.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player's score:">
          <font>
-            <Font name="Algerian" size="18.0" />
+            <Font name="Rockwell" size="18.0" />
          </font></Text>
-      <Text fx:id="txtRound" layoutX="905.0" layoutY="355.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ROUND: 1">
+      <Text fx:id="txtRound" fill="#0e2e71" layoutX="796.0" layoutY="355.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Round:">
          <font>
-            <Font name="Algerian" size="18.0" />
+            <Font name="Rockwell" size="18.0" />
          </font></Text>
-      <Button fx:id="btnDrawCard" layoutX="441.0" layoutY="330.0" mnemonicParsing="false" onAction="#drawFromMainDeck" text="DRAW" visible="false" />
+      <Button fx:id="btnDrawCard" layoutX="475.0" layoutY="330.0" mnemonicParsing="false" onAction="#drawFromMainDeck" text="DRAW" visible="false" />
       <Button fx:id="btnStart" layoutX="14.0" layoutY="370.0" mnemonicParsing="false" onAction="#start" prefHeight="38.0" prefWidth="246.0" text="START" />
       <TextField fx:id="editTxtFinishingPoints" alignment="CENTER" layoutX="14.0" layoutY="336.0" prefHeight="26.0" prefWidth="245.0" text="70" />
-      <Text fx:id="txtPointsEndGame" layoutX="14.0" layoutY="325.0" strokeType="OUTSIDE" strokeWidth="0.0" text="How many points will end a game?">
+      <Text fx:id="txtPointsEndGame" fill="#0e2e71" layoutX="25.0" layoutY="323.0" strokeType="OUTSIDE" strokeWidth="0.0" text="How many points will end a game?">
          <font>
-            <Font name="Algerian" size="14.0" />
+            <Font name="Rockwell" size="14.0" />
          </font>
       </Text>
       <ImageView fx:id="imageSuit" fitHeight="50.0" fitWidth="50.0" layoutX="667.0" layoutY="325.0" pickOnBounds="true" preserveRatio="true" />

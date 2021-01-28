@@ -1,6 +1,5 @@
 package edu.ib;
 
-import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -22,10 +21,6 @@ public class Controller {
     private Game game;
     Button[] cardsButtons = new Button[52];
     Button[] colorButtons = new Button[4];
-
-    public Button[] getColorButtons() {
-        return colorButtons;
-    }
 
     @FXML
     private ResourceBundle resources;
@@ -54,8 +49,6 @@ public class Controller {
     @FXML
     private TextField editTxtFinishingPoints;
 
-
-
     @FXML
     private Text txtPointsEndGame;
 
@@ -64,6 +57,14 @@ public class Controller {
 
     @FXML
     private Button newRoundButton;
+
+    @FXML
+    void start(ActionEvent event) {
+        startNewGame();
+        txtComputerScore.setText("Computer's score: 0");
+        txtPlayerScore.setText("Player's score: 0");
+        txtRound.setText("Round: 1");
+    }
 
     @FXML
     void newRound(ActionEvent event) {
@@ -84,32 +85,6 @@ public class Controller {
             game.getPlayers()[0].getHand().sort();
             game.getPlayers()[0].getHand().display();
         }
-    }
-
-    public void setComputerScore(int points){
-        txtComputerScore.setText("Computer's score: "+points);
-    }
-    public void setPlayerScore(int points){
-        txtPlayerScore.setText("Player's score: "+points);
-    }
-    public void setRounds(int number){
-        txtRound.setText("Round: "+number);
-    }
-
-    @FXML
-    void start(ActionEvent event) {
-        startNewGame();
-        txtComputerScore.setText("Computer's score: 0");
-        txtPlayerScore.setText("Player's score: 0");
-        txtRound.setText("Round: 1");
-    }
-
-    public Text getTxtPointsEndGame() {
-        return txtPointsEndGame;
-    }
-
-    public ImageView getImageSuit() {
-        return imageSuit;
     }
 
     /**
@@ -200,6 +175,30 @@ public class Controller {
             colorButton.setVisible(true);
         }
     }
+
+
+    public void setComputerScore(int points){
+        txtComputerScore.setText("Computer's score: "+points);
+    }
+    public void setPlayerScore(int points){
+        txtPlayerScore.setText("Player's score: "+points);
+    }
+    public void setRounds(int number){
+        txtRound.setText("Round: "+number);
+    }
+
+    public Button[] getColorButtons() {
+        return colorButtons;
+    }
+
+    public Text getTxtPointsEndGame() {
+        return txtPointsEndGame;
+    }
+
+    public ImageView getImageSuit() {
+        return imageSuit;
+    }
+
     public Game getGame() {
         return game;
     }
