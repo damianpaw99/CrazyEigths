@@ -45,6 +45,7 @@ public class HumanPlayer extends Player {
 
             game.getSecondDeck().setImage(card.FRONT_IMAGE);
             game.displayColorButtons();
+            game.setPlayerTurn(1);
             game.getController().getImageSuit().setVisible(false);
         } else if (game.getCardColor().equals(Game.CardColor.Normal)) { //jezeli normalny tryb
 
@@ -76,8 +77,7 @@ public class HumanPlayer extends Player {
         }
 
         //sprawdzenie wygranej rundy
-        if (hand.isEmpty()) {
-            game.setRunning(false);
+        if (hand.isEmpty() && game.isRunning()) {
             game.finishRound(this);
         }
     }

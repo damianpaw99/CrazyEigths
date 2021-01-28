@@ -121,11 +121,10 @@ public class AIPlayer extends Player {
             hand.display();
         }
 
-        if (hand.isEmpty()) {
+        if (hand.isEmpty() && game.isRunning()) {
             game.finishRound(this);
         } else {
             game.setPlayerTurn(0);
-
         }
     }
 

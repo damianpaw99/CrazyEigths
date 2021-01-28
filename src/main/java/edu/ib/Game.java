@@ -114,6 +114,7 @@ public class Game {
      * @param player Player who made the last move in the round
      */
     public void finishRound(Player player) {
+        running=false;
         cardColor = CardColor.Normal;
         controller.getImageSuit().setVisible(false);
         Player pl;
@@ -130,19 +131,19 @@ public class Game {
         }
         controller.setComputerScore(players[1].getPoints());
         controller.setPlayerScore(players[0].getPoints());
-        if (pw.getPoints() > valueToEnd) {
-            finishGame();
-        } else {
-            controller.getBtnDrawCard().setVisible(false);
-            controller.getNewRoundButton().setVisible(true);
-        }
+
         mainDeck.emptyDeck();
         secondDeck.emptyDeck();
         players[0].getHand().emptyDeck();
         players[0].getHand().display();
         players[1].getHand().emptyDeck();
         players[1].getHand().display();
-
+        if (pw.getPoints() > valueToEnd) {
+            finishGame();
+        } else {
+            controller.getBtnDrawCard().setVisible(false);
+            controller.getNewRoundButton().setVisible(true);
+        }
     }
 
     /**
@@ -152,7 +153,9 @@ public class Game {
         controller.getBtnStart().setVisible(true);
         controller.getEditTxtFinishingPoints().setVisible(true);
         controller.getTxtPointsEndGame().setVisible(true);
+        controller.getBtnDrawCard().setVisible(false);
         controller.getNewRoundButton().setVisible(false);
+        running=false;
     }
 
     /**

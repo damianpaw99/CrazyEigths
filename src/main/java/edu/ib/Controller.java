@@ -122,7 +122,7 @@ public class Controller {
                 Card.Suit[] suit = Card.Suit.values();
                 Button button = new Button();
                 button.setLayoutY(400);
-                button.setLayoutX(400 + 50 * i);
+                button.setLayoutX(400 + 51 * i);
 
                 button.setMaxHeight(50);
                 button.setMaxHeight(50);
