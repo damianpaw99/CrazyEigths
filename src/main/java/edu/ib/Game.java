@@ -6,6 +6,7 @@ import edu.ib.player.HumanPlayer;
 import edu.ib.player.Player;
 import javafx.scene.image.Image;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -23,6 +24,9 @@ public class Game {
     private boolean gameFinished = false;
     private CardColor cardColor = CardColor.Normal;
 
+    /**
+     * Class describing color state of game
+     */
     public enum CardColor {
         Hearts,
         Spades,
@@ -91,7 +95,7 @@ public class Game {
 
         mainDeck.setImage(Card.BACK_IMAGE);
         mainDeck.moveCardToDeck(mainDeck.getCard(0), secondDeck, 0);
-        secondDeck.setImage(secondDeck.getCard(0).FRONT_IMAGE);
+        secondDeck.setImage(secondDeck.getCard(0).frontImage);
         running = true;
         if (playerTurn == 1) players[1].playCard(null);
         controller.getBtnDrawCard().setVisible(true);
@@ -111,34 +115,35 @@ public class Game {
     /**
      * Method to finish the round
      *
-     * @param player Player who made the last move in the round
+     * @param player Player who won the round
      */
     public void finishRound(Player player) {
         running=false;
         cardColor = CardColor.Normal;
         controller.getImageSuit().setVisible(false);
-        Player pl;
-        Player pw;
-        if (players[0].equals(player)) {
-            pw = players[0];
-            pl = players[1];
-        } else {
-            pw = players[1];
-            pl = players[0];
+        ArrayList<Player> pl=new ArrayList<>();
+
+        for(int i=0;i<players.length;i++){
+            if (!players[i].equals(player)){
+                pl.add(players[i]);
+            }
         }
-        for (int i = 0; i < pl.getHand().size(); i++) {
-            pw.addPoints(pl.getHand().getCard(i).getPointsValue());
+        for(int j=0;j<pl.size();j++) {
+            for (int i = 0; i < pl.get(j).getHand().size(); i++) {
+                player.addPoints(pl.get(j).getHand().getCard(i).getPointsValue());
+            }
         }
+
         controller.setComputerScore(players[1].getPoints());
         controller.setPlayerScore(players[0].getPoints());
 
         mainDeck.emptyDeck();
         secondDeck.emptyDeck();
-        players[0].getHand().emptyDeck();
-        players[0].getHand().display();
-        players[1].getHand().emptyDeck();
-        players[1].getHand().display();
-        if (pw.getPoints() >= valueToEnd) {
+        for (Player value : players) {
+            value.getHand().emptyDeck();
+            value.getHand().display();
+        }
+        if (player.getPoints() >= valueToEnd) {
             finishGame();
         } else {
             controller.getBtnDrawCard().setVisible(false);
@@ -150,12 +155,7 @@ public class Game {
      * Method to finish the Game
      */
     public void finishGame() {
-        controller.getBtnStart().setVisible(true);
-        controller.getEditTxtFinishingPoints().setVisible(true);
-        controller.getTxtPointsEndGame().setVisible(true);
-        controller.getBtnDrawCard().setVisible(false);
-        controller.getNewRoundButton().setVisible(false);
-        running=false;
+        controller.finishGame();
     }
 
     /**

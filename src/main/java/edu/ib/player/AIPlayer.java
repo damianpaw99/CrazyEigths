@@ -92,13 +92,13 @@ public class AIPlayer extends Player {
                 if (drawCard.getRank().equals(Card.Rank.Eight)) { //jeżeli ósemka
                     playEight(drawCard);
                     played=true;
-                    hand.display();
+
                 } else if (case1||case2){ //jeśli nie ósemka
                     played = true;
                     game.setCardColor(Game.CardColor.Normal);
-                    game.getSecondDeck().setImage(getHand().getCard(hand.size() - 1).FRONT_IMAGE);
+                    game.getSecondDeck().setImage(getHand().getCard(hand.size() - 1).frontImage);
                     hand.moveCardToDeck(getHand().getCard(hand.size() - 1), game.getSecondDeck(), 0);
-                    hand.display();
+
                 }
             }
         } else { //lista nie pusta
@@ -115,11 +115,13 @@ public class AIPlayer extends Player {
             } else {
                 hand.moveCardToDeck(card, game.getSecondDeck(), 0);
                 card.setVisible(false);
-                game.getSecondDeck().setImage(card.FRONT_IMAGE);
+                game.getSecondDeck().setImage(card.frontImage);
                 game.setCardColor(Game.CardColor.Normal);
             }
-            hand.display();
+
         }
+
+        hand.display();
 
         if (hand.isEmpty() && game.isRunning()) {
             game.finishRound(this);
@@ -128,6 +130,10 @@ public class AIPlayer extends Player {
         }
     }
 
+    /**
+     * Method playing Eight
+     * @param card Eight card
+     */
     private void playEight(Card card){
         Card.Suit[] suits = Card.Suit.values();
         Card.Suit cardColor = Card.Suit.Hearts;
@@ -141,7 +147,7 @@ public class AIPlayer extends Player {
         }
         hand.moveCardToDeck(card,game.getSecondDeck(),0);
         card.setVisible(false);
-        game.getSecondDeck().setImage(card.FRONT_IMAGE);
+        game.getSecondDeck().setImage(card.frontImage);
         game.setCardColor(Game.CardColor.valueOf(cardColor.toString()));
         game.getController().getImageSuit().setVisible(true);
         game.getController().getImageSuit().setImage(new Image("/graphics/"+game.getCardColor().toString()+".png"));

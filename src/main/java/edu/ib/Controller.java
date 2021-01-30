@@ -199,6 +199,14 @@ public class Controller {
         return imageSuit;
     }
 
+    public void finishGame(){
+        btnStart.setVisible(true);
+        editTxtFinishingPoints.setVisible(true);
+        txtPointsEndGame.setVisible(true);
+        btnDrawCard.setVisible(false);
+        newRoundButton.setVisible(false);
+    }
+
     public Game getGame() {
         return game;
     }

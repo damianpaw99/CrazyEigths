@@ -19,7 +19,7 @@ public class Card extends Button implements Comparable<Card> {
      */
     private Deck deck;
 
-    public Image FRONT_IMAGE;
+    public Image frontImage;
     public static final Image BACK_IMAGE = new Image("/graphics/back.png");
 
     /**
@@ -70,9 +70,9 @@ public class Card extends Button implements Comparable<Card> {
      */
     public Card(Deck deck, Rank rank, Suit suit) {
         try {
-            FRONT_IMAGE = new Image("/graphics/" + rank.toString() + "_" + suit.toString() + ".png");
+            frontImage = new Image("/graphics/" + rank.toString() + "_" + suit.toString() + ".png");
         } catch (Exception e) {
-            FRONT_IMAGE = new Image("/graphics/blank.png");
+            frontImage = new Image("/graphics/blank.png");
             this.setText(rank.toString() + "\n" + suit.toString());
         }
 
@@ -80,7 +80,7 @@ public class Card extends Button implements Comparable<Card> {
         this.rank = rank;
         this.suit = suit;
 
-        this.setBackground(new Background(new BackgroundImage(FRONT_IMAGE, null, null, null, null)));
+        this.setBackground(new Background(new BackgroundImage(frontImage, null, null, null, null)));
         setLayoutX(0);
         setLayoutY(0);
 

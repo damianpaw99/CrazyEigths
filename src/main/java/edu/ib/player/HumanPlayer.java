@@ -26,7 +26,7 @@ public class HumanPlayer extends Player {
     @Override
     public void drawCard(Card card) {
         super.drawCard(card);
-        card.setDisplayedImage(card.FRONT_IMAGE);
+        card.setDisplayedImage(card.frontImage);
     }
 
     /**
@@ -43,7 +43,7 @@ public class HumanPlayer extends Player {
             card.setVisible(false);
             hand.display();
 
-            game.getSecondDeck().setImage(card.FRONT_IMAGE);
+            game.getSecondDeck().setImage(card.frontImage);
             game.displayColorButtons();
             game.setPlayerTurn(1);
             game.getController().getImageSuit().setVisible(false);
@@ -59,7 +59,7 @@ public class HumanPlayer extends Player {
 
                 game.setCardColor(Game.CardColor.Normal);
                 game.setPlayerTurn(1);
-                game.getSecondDeck().setImage(card.FRONT_IMAGE);
+                game.getSecondDeck().setImage(card.frontImage);
                 game.getController().getImageSuit().setVisible(false);
                 game.getPlayers()[1].playCard(null);
 
@@ -71,7 +71,7 @@ public class HumanPlayer extends Player {
             hand.display();
             card.setVisible(false);
 
-            game.getSecondDeck().setImage(card.FRONT_IMAGE);
+            game.getSecondDeck().setImage(card.frontImage);
             game.setPlayerTurn(1);
             game.getPlayers()[1].playCard(null);
         }
