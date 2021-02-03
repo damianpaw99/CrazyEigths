@@ -114,7 +114,6 @@ public class Controller {
             txtPointsEndGame.setVisible(false);
             editTxtFinishingPoints.setVisible(false);
 
-            //jeszcze schować trzeba text
             for (int i = 0; i < colorButtons.length; i++) {
                 colorButtons[i] = new Button();
             }
@@ -176,21 +175,37 @@ public class Controller {
         }
     }
 
-
+    /**
+     * Method to set the computers score
+     */
     public void setComputerScore(int points){
         txtComputerScore.setText("Computer's score: "+points);
     }
+
+    /**
+     * Method to set the players score
+     */
     public void setPlayerScore(int points){
         txtPlayerScore.setText("Player's score: "+points);
     }
+
+    /**
+     * Method to set the number of the round
+     */
     public void setRounds(int number){
         txtRound.setText("Round: "+number);
     }
 
+    /**
+     * Method to get the color buttons
+     */
     public Button[] getColorButtons() {
         return colorButtons;
     }
 
+    /**
+     * Method to get the points at the end of the game
+     */
     public Text getTxtPointsEndGame() {
         return txtPointsEndGame;
     }
@@ -199,6 +214,9 @@ public class Controller {
         return imageSuit;
     }
 
+    /**
+     * Method to end the game
+     */
     public void finishGame(){
         btnStart.setVisible(true);
         editTxtFinishingPoints.setVisible(true);
@@ -207,50 +225,86 @@ public class Controller {
         newRoundButton.setVisible(false);
     }
 
+    /**
+     * Method to get the Game
+     */
     public Game getGame() {
         return game;
     }
 
+    /**
+     * Method to get cardsButtons
+     */
     public Button[] getCardsButtons() {
         return cardsButtons;
     }
 
+    /**
+     * Method to get resources
+     */
     public ResourceBundle getResources() {
         return resources;
     }
 
+    /**
+     * Method to get location
+     */
     public URL getLocation() {
         return location;
     }
 
+    /**
+     * Method to get canvas
+     */
     public AnchorPane getCanvas() {
         return canvas;
     }
 
+    /**
+     * Method to get the computers score
+     */
     public Text getTxtComputerScore() {
         return txtComputerScore;
     }
 
+    /**
+     * Method to get the players score
+     */
     public Text getTxtPlayerScore() {
         return txtPlayerScore;
     }
 
+    /**
+     * Method to get the txtRound
+     */
     public Text getTxtRound() {
         return txtRound;
     }
 
+    /**
+     * Method to get the btnDrawCard
+     */
     public Button getBtnDrawCard() {
         return btnDrawCard;
     }
 
+    /**
+     * Method to get the btnStart
+     */
     public Button getBtnStart() {
         return btnStart;
     }
 
+    /**
+     * Method to get the editTxtFinishingPoints
+     */
     public TextField getEditTxtFinishingPoints() {
         return editTxtFinishingPoints;
     }
 
+    /**
+     * Method to get the newRoundButton
+     */
     public Button getNewRoundButton() {
         return newRoundButton;
     }
